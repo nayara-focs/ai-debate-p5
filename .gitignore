@@ -1,3 +1,13 @@
+# macOS cruft
+.DS_Store
+
+# private or heavyweight local folders
+DEV/
+docs/*.pdf
+docs/*.docx
+references/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -172,3 +182,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# extras
+.DS_Store
+DEV/
+docs/*.pdf
+docs/*.docx
+references/
