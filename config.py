@@ -1,6 +1,7 @@
 import os
 import openai
 from dotenv import load_dotenv
+from pathlib import Path
 
 # Load environment variables from .env file
 load_dotenv()
@@ -28,4 +29,5 @@ SYSTEM_PROMPT = (
 INITIAL_TOPIC = "Should we follow the recommendations of the 2023 Particle Physics P5 Report?"
 
 # File name for the P5 report text
-P5_REPORT_FILE = "p5_report.txt"
+P5_REPORT_FILE: Path = Path(__file__).resolve().parent /"docs"/"p5_report.txt"
+
