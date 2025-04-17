@@ -1,7 +1,7 @@
 # p5‑ai‑debate 🤖⚛️
 Prototype – AI debate for particle‑physics strategy (P5 2023)
 
-Large‑language‑model “Pro vs Against” debates on the 2023 **Particle‑Physics Project Prioritization Panel (P5)** report, with an automated LLM judge and detailed token‑usage stats.
+Large‑language‑model “Pro vs Against” debates on the 2023 **Particle‑Physics Project Prioritization Panel (P5)** report (https://www.usparticlephysics.org/2023-p5-report/), with an automated LLM judge and detailed token‑usage stats.
 
 ---
 
