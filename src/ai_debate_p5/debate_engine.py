@@ -6,8 +6,9 @@ import openai
 from datetime import datetime
 import config
 from config import client  # Import the client from config
-from judge_module import judge_debate
-from stats_module import global_stats, update_turn_stats, update_match_stats
+
+from .judge_module import judge_debate
+from .stats_module import global_stats, update_turn_stats, update_match_stats
 
 def generate_openings(side: str, n_variants: int, static_context, initial_topic):
     """

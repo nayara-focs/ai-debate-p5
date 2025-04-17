@@ -1,8 +1,13 @@
 import json
 from datetime import datetime
 import config
-from debate_engine import run_all_matches
-from stats_module import global_stats, compute_average_tokens_per_turn
+
+# package‑relative imports
+from ai_debate_p5 import run_all_matches
+from ai_debate_p5.stats_module import (
+    global_stats,
+    compute_average_tokens_per_turn,
+)
 
 def load_static_context(filename):
     with open(filename, "r", encoding="utf-8") as f:
