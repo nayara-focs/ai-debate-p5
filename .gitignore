@@ -6,6 +6,7 @@ DEV/
 docs/*.pdf
 docs/*.docx
 references/
+examples/
 
 
 # Byte-compiled / optimized / DLL files
@@ -189,3 +190,4 @@ DEV/
 docs/*.pdf
 docs/*.docx
 references/
+debate_logs_*.json
