@@ -1,11 +1,13 @@
 # p5‑ai‑debate 🤖⚛️
 Prototype – AI debate for particle‑physics strategy (P5 2023)
 
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+
 Large‑language‑model “Pro vs Against” debates on the 2023 **Particle‑Physics Project Prioritization Panel (P5)** report (https://www.usparticlephysics.org/2023-p5-report/), with an automated LLM judge and detailed token‑usage stats.
 
 ---
 
-## 📦 Quick start
+## Quick start
 
 ```bash
 # 1) Clone the repo and enter it
