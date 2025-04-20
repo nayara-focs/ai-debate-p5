@@ -4,8 +4,8 @@ Prototype – AI debate for particle‑physics strategy (P5 2023)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 
 
-Large‑language‑model **“Pro vs Against”** debates on the 2023 **Particle‑Physics Project Prioritization Panel (P5)** report (https://www.usparticlephysics.org/2023-p5-report/).  
-Two GPT‑style agents argue, an LLM judge decides who’s more persuasive, and the whole exchange (with token stats) is logged to disk.
+- Large‑language‑model **“Pro vs Against”** debates on the 2023 **Particle‑Physics Project Prioritization Panel (P5)** report (https://www.usparticlephysics.org/2023-p5-report/).  
+- Two GPT‑style agents argue, an LLM judge decides who’s more persuasive, and the whole exchange (with token stats) is logged to disk.
 
 ---
 
