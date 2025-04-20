@@ -27,7 +27,7 @@ Debate Matches  (A1 vs B1, A1 vs B2, …)  – multi‑round back‑and�
 LLM Judge  →  “Pro‑P5 wins” / “Against‑P5 wins”  + rationale
                                         │
                                         ▼
-Quant stats  →  win‑rate · Elo rating · average tokens / turn
+Quant stats  →  win‑rate  · average tokens / turn · ...
 ```
 
 ---
