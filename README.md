@@ -13,9 +13,9 @@ P5 report (static context) ──► Initial prompt
                                "Should we follow the 2023 P5 recommendations?"
 
                    ┌──────────────── diverse openings ────────────────┐
-                   │  Pro‑Opening A   Pro‑Opening B   …                │
-                   │  Con‑Opening A   Con‑Opening B   …                │
-                   └───────────────────────────────────────────────────┘
+                   │  Pro‑Opening A   Pro‑Opening B   …               │
+                   │  Con‑Opening A   Con‑Opening B   …               │
+                   └──────────────────────────────────────────────────┘
                                         │ pairwise
                                         ▼
 Debate Matches  (A1 vs B1, A1 vs B2, …)  – multi‑round back‑and‑forth
