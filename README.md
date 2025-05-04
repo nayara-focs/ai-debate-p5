@@ -9,7 +9,7 @@ This project explores domain-specific decision-making with automated judging and
 
 
 
-- Large‑language‑model **“Pro vs Against”** debates on the 2023 **US Particle‑Physics Project Prioritization Panel (P5)** report (https://www.usparticlephysics.org/2023-p5-report/).  
+- Large‑language‑model **“Pro vs Against”** debates on the **US Particle‑Physics Project Prioritization Panel (P5)** report (https://www.usparticlephysics.org/2023-p5-report/).  
 - Two GPT‑style agents argue, an LLM judge decides who’s more persuasive, and the whole exchange (with token stats) is logged to disk.
 - Inspired by recent work on **LLM debate protocols** such as [Debating with More Persuasive LLMs Leads to More Truthful Answers](https://arxiv.org/abs/2402.06782) (Khan et al., 2024).
 
