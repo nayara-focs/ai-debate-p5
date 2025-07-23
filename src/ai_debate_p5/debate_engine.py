@@ -49,8 +49,7 @@ def run_debate_match(match_id, static_context, initial_topic):
         "turns": []
     }
     
-    # # Update global match counter
-    # global_stats["total_matches"] += 1
+
 
     # Determine starting speakers: odd match -> Pro-P5 starts; even match -> Against-P5 starts.
     if match_id % 2 != 0:
