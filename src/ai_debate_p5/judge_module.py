@@ -1,6 +1,11 @@
 import re
 import config
-from config import client  
+from config import client
+
+def _contains_explicit_winner(text: str) -> bool:
+    """Returns True iff text has the required 'Pro-P5 wins' or 'Against-P5 wins'."""
+    lower = text.lower()
+    return ("pro-p5 wins" in lower) or ("against-p5 wins" in lower)
 
 def judge_debate(match_data, static_context):
     """
@@ -25,18 +30,45 @@ def judge_debate(match_data, static_context):
         "and then stating your final verdict with explanation."
     )
     
-    # Use the client from config to make the chat completion call.
+
+
+    # ---------- first attempt -------------------------------------------------
     judge_response = client.chat.completions.create(
+    model=config.MODEL,
+    messages=[
+        {"role": "system", "content": "You are an impartial judge evaluating a debate."},
+        {"role": "user",   "content": judge_prompt},
+    ],
+    temperature=config.TEMPERATURE,
+    max_tokens=400,
+)
+    verdict_text = judge_response.choices[0].message.content.strip()
+    full_verdict  = verdict_text        # we’ll append to this if we reprompt
+
+# ---------- fallback reprompt --------------------------------------------
+    if not _contains_explicit_winner(verdict_text):
+        print("Judge omitted explicit winner: REPROMPTING")
+
+        follow_up = [
+        {"role": "system",
+         "content": (
+             "You forgot to state the winner explicitly. "
+             "Reply with **exactly one line**:\n"
+             "Pro-P5 wins\nor\nAgainst-P5 wins"
+         )},
+    ]
+        reprompt = client.chat.completions.create(
         model=config.MODEL,
-        messages=[
-            {"role": "system", "content": "You are an impartial judge evaluating a debate."},
-            {"role": "user", "content": judge_prompt}
-        ],
-        temperature=config.TEMPERATURE,
-        max_tokens=400,
+        messages=follow_up,
+        temperature=0,
+        max_tokens=10,
     )
-    
-    verdict = judge_response.choices[0].message.content.strip()
+        short_line = reprompt.choices[0].message.content.strip()
+        full_verdict += "\n\n--- reprompt ---\n" + short_line
+
+    # keep original variable names for the rest of the function
+    verdict = full_verdict
+
     judge_usage = judge_response.usage
     
     print("\n📢 Judge's Evaluation:")
