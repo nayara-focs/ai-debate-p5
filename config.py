@@ -13,7 +13,8 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 # Debate Configuration
-MODEL = "gpt-4o-mini"              
+# MODEL = "gpt-4o-mini"
+MODEL = "gpt-4o-mini-2024-07-18"
 TEMPERATURE = 0.7
 MAX_TOKENS_PER_RESPONSE = 800
 NUM_MATCHES = 4               # Number of debate matches to run (for testing)
@@ -31,3 +32,36 @@ INITIAL_TOPIC = "Should we follow the recommendations of the 2023 Particle Physi
 # File name for the P5 report text
 P5_REPORT_FILE: Path = Path(__file__).resolve().parent /"docs"/"p5_report.txt"
 
+# ------------------------------------------------------------------
+# Debater roster for Elo experiment (budget-trimmed)
+# ------------------------------------------------------------------
+
+DEBATERS = [
+    {
+        "id": "A",
+        "boN": 1,
+        "temperature": 0.7,
+        "model": "gpt-4o-mini",
+    },
+    {
+        "id": "B",
+        "boN": 4,
+        "temperature": 0.7,
+        "model": "gpt-4o-mini",
+    },
+    {
+        "id": "C",
+        "boN": 8,
+        "temperature": 0.7,
+        "model": "gpt-4o-mini",
+    },
+    {
+        "id": "D",
+        "boN": 8,
+        "temperature": 0.7,
+        "model": "o4-mini",          # o-series reasoning model
+    },
+]
+
+
+REPEATS_PER_PAIR = 5  # how many independent repeats per ordered direction
