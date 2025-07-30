@@ -15,8 +15,7 @@ def load_static_context(filename):
 
 def main():
     static_context = load_static_context(config.P5_REPORT_FILE)
-    matches_data = run_all_matches(config.NUM_MATCHES, static_context, config.INITIAL_TOPIC)
-    
+    matches_data = run_all_matches(static_context, config.INITIAL_TOPIC)    
     # Compute average tokens per turn and update global stats
     avg_tokens = compute_average_tokens_per_turn()
     global_stats["average_tokens_per_turn"] = avg_tokens

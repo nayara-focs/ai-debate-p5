@@ -5,7 +5,10 @@ import json
 import openai
 from datetime import datetime
 import config
-from config import client  # Import the client from config
+from config import client  # Import the client from 
+from .utils_openai import chat_extra_kwargs, supports_logprobs
+from itertools import product
+
 
 from .judge_module import judge_debate
 from .stats_module import global_stats, update_turn_stats, update_match_stats
@@ -33,6 +36,7 @@ def generate_openings(
 
     for _ in range(boN):
         # --- call the chosen model ---
+        want_logprobs = supports_logprobs(model_name)
         response = client.chat.completions.create(
             model=model_name,
             messages=[
@@ -45,21 +49,22 @@ def generate_openings(
                 },
                 {"role": "user", "content": prompt},
             ],
-            temperature=temperature,
-            # handle o-series vs GPT models --------------------
-            max_completion_tokens=config.MAX_TOKENS_PER_RESPONSE
-            if model_name.startswith("o")
-            else None,
-            max_tokens=config.MAX_TOKENS_PER_RESPONSE
-            if not model_name.startswith("o")
-            else None,
-            logprobs=True,   # request token log-probs
+            **chat_extra_kwargs(model_name, temperature),
+            logprobs = want_logprobs,
         )
         draft = response.choices[0].message.content.strip()
 
-        # --- compute simple log-prob score ---
-        token_logps = response.choices[0].logprobs.token_logprobs
-        score = sum(token_logps)
+        # --- compute simple log-prob score (handles both client shapes) ---
+
+
+        if want_logprobs:
+            lp_obj = response.choices[0].logprobs
+            token_logps = lp_obj.token_logprobs if hasattr(lp_obj, "token_logprobs") \
+                  else [tok.logprob for tok in lp_obj.content]
+            score = sum(token_logps)
+        else:
+            score = 0.0      # fallback when logprobs unavailable
+
 
         if score > best_score:
             best_score, best_draft, best_usage = score, draft, response.usage
@@ -69,7 +74,12 @@ def generate_openings(
     # return only the best draft
     return {"text": best_draft, "usage": best_usage}
 
-def run_debate_match(match_id, static_context, initial_topic):
+def run_debate_match(match_id,
+                     debater_pro: dict,
+                     debater_con: dict,
+                     static_context,
+                     initial_topic,
+                     pro_starts: bool):
     """
     Runs one complete debate match.
     Returns the match data dictionary.
@@ -81,29 +91,35 @@ def run_debate_match(match_id, static_context, initial_topic):
     }
     
 
+    speakers = [("Pro-P5", "🔵"), ("Against-P5", "🔴")] if pro_starts \
+         else [("Against-P5", "🔴"), ("Pro-P5", "🔵")]
 
-    # Determine starting speakers: odd match -> Pro-P5 starts; even match -> Against-P5 starts.
-    if match_id % 2 != 0:
-        speakers = [("Pro-P5", "🔵"), ("Against-P5", "🔴")]
-        pro_count = (match_id + 1) // 2  # For example: match 1 -> 1, match 3 -> 2, etc.
-        variant_index = (pro_count - 1) % config.OPENING_VARIANTS
-        starting_side = "Pro"
-    else:
-        speakers = [("Against-P5", "🔴"), ("Pro-P5", "🔵")]
-        against_count = match_id // 2  # For example: match 2 -> 1, match 4 -> 2, etc.
-        variant_index = (against_count - 1) % config.OPENING_VARIANTS
-        starting_side = "Against"
+    debater_map = {
+    "Pro-P5":     debater_pro,
+    "Against-P5": debater_con,
+    }
+    starting_speaker, starting_emoji = speakers[0]
+    side_label = starting_speaker.split("-")[0]   # "Pro" or "Against"
+
 
     messages = [
         {"role": "system", "content": config.SYSTEM_PROMPT},
         {"role": "user", "content": f"Debate topic: {initial_topic}\n\nContext:\n{static_context}"}
     ]
 
-    print(f"\nGenerating {config.OPENING_VARIANTS} opening variants for {starting_side} side...")
-    opening_options = generate_openings(starting_side, config.OPENING_VARIANTS, static_context, initial_topic)
-    selected_variant = opening_options[variant_index]
-    selected_opening = selected_variant["text"]
-    usage_info = selected_variant["usage"]
+    print(f"\nGenerating opening variants for {side_label} side...")
+
+    d = debater_map[starting_speaker]
+    result = generate_openings(
+            side=starting_speaker.split("-")[0],   # "Pro" or "Against"
+            boN=d["boN"],
+            temperature=d["temperature"],
+            model_name=d["model"],
+            static_context=static_context,
+            initial_topic=initial_topic,
+        )
+    selected_opening = result["text"]
+    usage_info       = result["usage"]
 
     # Print round header then the opening (Turn 1)
     print("\n🔁 Starting Round 1")
@@ -133,11 +149,15 @@ def run_debate_match(match_id, static_context, initial_topic):
         print(f"\n{emoji} {current_speaker}'s Turn {turn}")
 
         messages.append({"role": "user", "content": f"{current_speaker}, please respond to your opponent."})
+
+        # Get the debater's model and temperature
+        d = debater_map[current_speaker]
+        model_name  = d["model"]
+        temperature = d["temperature"]
         response = client.chat.completions.create(
-            model=config.MODEL,
+            model=model_name,
             messages=messages,
-            temperature=config.TEMPERATURE,
-            max_tokens=config.MAX_TOKENS_PER_RESPONSE,
+            **chat_extra_kwargs(model_name, temperature),
         )
         content = response.choices[0].message.content
         usage = response.usage
@@ -165,13 +185,43 @@ def run_debate_match(match_id, static_context, initial_topic):
     update_match_stats(verdict)
     return match_data
 
-def run_all_matches(num_matches, static_context, initial_topic):
+def run_all_matches(static_context, initial_topic):
     matches_data = []
-    for match_id in range(1, num_matches + 1):
-        print(f"\n===========================")
-        print(f"🔁 Starting Debate Match {match_id}")
-        print(f"===========================")
-        match_data = run_debate_match(match_id, static_context, initial_topic)
-        matches_data.append(match_data)
-        print(f"\n✅ Debate Match {match_id} complete.")
+    debs = config.DEBATERS
+    match_id = 1
+
+    for deb_pro, deb_con in product(debs, debs):
+        if deb_pro["id"] == deb_con["id"]:
+            continue  # skip self-play
+
+        for rep in range(1, config.REPEATS_PER_PAIR + 1):
+            # -------- direction 1: Pro side opens ------------
+            print("\n===========================")
+            print(f"🔁 Starting Debate Match {match_id} "
+                  f"[{deb_pro['id']}-Pro  vs  {deb_con['id']}-Con] "
+                  f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
+            print("===========================")
+
+            m = run_debate_match(match_id, deb_pro, deb_con,
+                                 static_context, initial_topic,
+                                 pro_starts=True)
+            matches_data.append(m)
+            print(f"\n✅ Debate Match {match_id} complete.")
+            match_id += 1
+
+            # -------- direction 2: Con side opens ------------
+            print("\n===========================")
+            print(f"🔁 Starting Debate Match {match_id} "
+                  f"[{deb_con['id']}-Pro  vs  {deb_pro['id']}-Con] "
+                  f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
+            print("===========================")
+
+            m = run_debate_match(match_id, deb_con, deb_pro,
+                                 static_context, initial_topic,
+                                 pro_starts=False)
+            matches_data.append(m)
+            print(f"\n✅ Debate Match {match_id} complete.")
+            match_id += 1
+
     return matches_data
+
