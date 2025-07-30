@@ -10,7 +10,13 @@ from config import client  # Import the client from config
 from .judge_module import judge_debate
 from .stats_module import global_stats, update_turn_stats, update_match_stats
 
-def generate_openings(side: str, n_variants: int, static_context, initial_topic):
+def generate_openings(
+        side: str,
+        boN: int,
+        temperature: float,
+        model_name: str,
+        static_context,
+        initial_topic):
     """
     Generate multiple opening arguments for the given side.
     Returns a list of dictionaries with keys: 'text' and 'usage'.
@@ -21,22 +27,47 @@ def generate_openings(side: str, n_variants: int, static_context, initial_topic)
         f"Context:\n{static_context}\n\n"
         "Please write your opening argument."
     )
-    openings = []
-    for _ in range(n_variants):
+    best_draft = None
+    best_score = -float("inf")
+    best_usage = None
+
+    for _ in range(boN):
+        # --- call the chosen model ---
         response = client.chat.completions.create(
-            model=config.MODEL,
+            model=model_name,
             messages=[
-                {"role": "system", "content": "Respond clearly and concisely. Provide an opening argument for the debate."},
-                {"role": "user", "content": prompt}
+                {
+                    "role": "system",
+                    "content": (
+                        "Respond clearly and concisely. "
+                        "Provide an opening argument for the debate."
+                    ),
+                },
+                {"role": "user", "content": prompt},
             ],
-            temperature=config.TEMPERATURE,
-            max_tokens=config.MAX_TOKENS_PER_RESPONSE,
+            temperature=temperature,
+            # handle o-series vs GPT models --------------------
+            max_completion_tokens=config.MAX_TOKENS_PER_RESPONSE
+            if model_name.startswith("o")
+            else None,
+            max_tokens=config.MAX_TOKENS_PER_RESPONSE
+            if not model_name.startswith("o")
+            else None,
+            logprobs=True,   # request token log-probs
         )
-        opening_text = response.choices[0].message.content.strip()
-        usage = response.usage
-        openings.append({"text": opening_text, "usage": usage})
-        time.sleep(1)  # Short delay for pacing
-    return openings
+        draft = response.choices[0].message.content.strip()
+
+        # --- compute simple log-prob score ---
+        token_logps = response.choices[0].logprobs.token_logprobs
+        score = sum(token_logps)
+
+        if score > best_score:
+            best_score, best_draft, best_usage = score, draft, response.usage
+
+        time.sleep(0.5)  # small pacing delay
+
+    # return only the best draft
+    return {"text": best_draft, "usage": best_usage}
 
 def run_debate_match(match_id, static_context, initial_topic):
     """
