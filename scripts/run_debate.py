@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 import config
+from math import prod
 
 # package‑relative imports
 from ai_debate_p5 import run_all_matches
@@ -15,12 +16,17 @@ def load_static_context(filename):
 
 def main():
     static_context = load_static_context(config.P5_REPORT_FILE)
+    total_expected = len(config.DEBATERS) * (len(config.DEBATERS)-1) * 2 * config.REPEATS_PER_PAIR
+    print(f"\n [info] This configuration will run {total_expected} matches.\n")
+
     matches_data = run_all_matches(static_context, config.INITIAL_TOPIC)    
     # Compute average tokens per turn and update global stats
     avg_tokens = compute_average_tokens_per_turn()
     global_stats["average_tokens_per_turn"] = avg_tokens
 
-    # Print global stats
+    # Print global 
+    
+    
     print("\n📊 Global Statistics:")
     print(f"Total Matches: {global_stats['total_matches']}")
     print(f"Pro-P5 Wins: {global_stats['pro_wins']}")

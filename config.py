@@ -16,10 +16,8 @@ client = openai.OpenAI(api_key=OPENAI_API_KEY)
 # MODEL = "gpt-4o-mini"
 MODEL = "gpt-4o-mini-2024-07-18"
 TEMPERATURE = 0.7
-MAX_TOKENS_PER_RESPONSE = 800
-NUM_MATCHES = 2               # Number of debate matches to run (for testing)
+MAX_TOKENS_PER_RESPONSE = 500
 TURNS_PER_MATCH = 2           # Total turns per match, including the opening turn.
-OPENING_VARIANTS = 2          # Number of distinct opening variants to generate
 
 # Prompts and Topic
 SYSTEM_PROMPT = (
@@ -64,4 +62,4 @@ DEBATERS = [
 ]
 
 
-REPEATS_PER_PAIR = 2  # how many independent repeats per ordered direction
+REPEATS_PER_PAIR = 1  # how many independent repeats per ordered direction
