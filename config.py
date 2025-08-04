@@ -16,7 +16,7 @@ client = openai.OpenAI(api_key=OPENAI_API_KEY)
 # MODEL = "gpt-4o-mini"
 MODEL = "gpt-4o-mini-2024-07-18"
 TEMPERATURE = 0.7
-MAX_TOKENS_PER_RESPONSE = 500
+MAX_TOKENS_PER_RESPONSE = 300
 TURNS_PER_MATCH = 2           # Total turns per match, including the opening turn.
 
 # Prompts and Topic
@@ -57,9 +57,18 @@ DEBATERS = [
         "id": "D",
         "boN": 1,
         "temperature": 1,
-        "model": "o4-mini",          # o-series reasoning model
+        "model": "o3-mini",          # o-series reasoning model
     },
 ]
 
 
 REPEATS_PER_PAIR = 1  # how many independent repeats per ordered direction
+
+"""
+Ordered pairs  :  n x (n - 1)          # product() excluding self-play
+Opener flips   :  x 2                  # Pro-opens, then Con-opens
+Repeats        :  x R
+---------------------------------------------
+Total matches  =  n · (n - 1) · 2 · R
+
+"""
