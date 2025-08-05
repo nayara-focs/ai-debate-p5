@@ -183,7 +183,13 @@ def run_debate_match(match_id,
     # Invoke the judge after the debate match is complete
     verdict = judge_debate(match_data, static_context)
     update_match_stats(verdict)
+    match_data["debater_pro"] = debater_pro["id"]
+    match_data["debater_con"] = debater_con["id"]
+    match_data["verdict"]     = verdict
+
     return match_data
+
+
 
 def run_all_matches(static_context, initial_topic):
     matches_data = []

@@ -21,3 +21,4 @@ def compute_average_tokens_per_turn():
     if global_stats["total_turns"] > 0:
         return global_stats["total_token_usage"] / global_stats["total_turns"]
     return 0
+
