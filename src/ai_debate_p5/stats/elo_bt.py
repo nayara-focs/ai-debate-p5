@@ -12,6 +12,7 @@ from typing import List, Tuple
 
 import numpy as np
 from scipy.optimize import minimize
+from scipy.special import expit
 
 
 # ---------- helper: build win-matrix from a log ------------------------
@@ -65,25 +66,26 @@ def _bt_nll(E: np.ndarray, w: np.ndarray) -> Tuple[float, np.ndarray]:
     E shape (n,), w shape (n,n).
     """
     n = len(E)
-    loss = 0.0
+    nll = 0.0
     grad = np.zeros_like(E)
 
     for i in range(n):
-        for j in range(n):
-            if i == j or (w[i, j] + w[j, i] == 0):
+        for j in range(i + 1, n):
+            if w[i, j] + w[j, i] == 0:
                 continue
 
-            diff = E[i] - E[j]
-            # log σ(diff) and log σ(-diff) numerically stable
-            logp = -math.log1p(math.exp(-diff))
-            logq = -math.log1p(math.exp(diff))
-            loss -= w[i, j] * logp + w[j, i] * logq
+            d_raw = E[i] - E[j]
+            d = np.clip(d_raw, -20.0, 20.0)
 
-            p = 1.0 / (1.0 + math.exp(-diff))
-            grad[i] -= (w[i, j] - w[j, i]) * (1 - p)
-            grad[j] += (w[i, j] - w[j, i]) * (1 - p)
+            p      = expit(d)                    # σ(d)
+            logp   = -np.logaddexp(0, -d)        # log σ(d)
+            log1p  = -np.logaddexp(0,  d)        # log σ(-d)
 
-    return loss, grad
+            nll  -= w[i, j] * logp + w[j, i] * log1p
+            grad[i] -= w[i, j] * (1 - p) - w[j, i] * p
+            grad[j] += w[i, j] * (1 - p) - w[j, i] * p
+
+    return nll, grad
 
 
 # ---------- public fitter ---------------------------------------------
@@ -100,6 +102,8 @@ def fit_bt(w: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
       Hessian lifted back to the full n×n space.
     """
     n = w.shape[0]
+    g0 = _bt_nll(np.zeros(n), w)[1]
+    print("grad@0  =", np.round(g0, 3))
 
     # -------- helper: expand reduced coords to full length -------------
     def unpack(x_red: np.ndarray) -> np.ndarray:
@@ -122,6 +126,9 @@ def fit_bt(w: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
                    x0=np.zeros(n - 1),
                    jac=lambda x: objective(x)[1],
                    method="BFGS")
+    
+    print("BFGS success:", res.success, res.message)
+    print("Finished x  :", np.round(res.x, 6))
 
     E_hat = unpack(res.x)
 
