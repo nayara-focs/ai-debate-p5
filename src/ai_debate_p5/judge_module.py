@@ -1,6 +1,8 @@
 import re
 import config
 from config import client
+from ai_debate_p5.stats_module import update_turn_stats
+
 
 def _contains_explicit_winner(text: str) -> bool:
     """Returns True iff text has the required 'Pro-P5 wins' or 'Against-P5 wins'."""
@@ -26,7 +28,8 @@ def judge_debate(match_data):
         "quality, provide a clear verdict (e.g., 'Pro-P5 wins' or 'Against-P5 wins') along with a brief explanation of your reasoning.\n\n"
         "Debate Transcript:\n" + transcript + "\n\n"
         "Your response should be structured, first listing the strengths and weaknesses for both debaters, "
-        "and then stating your final verdict with explanation."
+        "and then stating your final verdict with explanation. Keep your verdict within the token limit"
+        f" ({config.MAX_TOKENS_PER_RESPONSE} tokens), ending at a complete sentence."
     )
     
 
@@ -42,6 +45,9 @@ def judge_debate(match_data):
     max_tokens=400,
 )
     verdict_text = judge_response.choices[0].message.content.strip()
+    update_turn_stats(judge_response.usage.prompt_tokens,
+                  judge_response.usage.completion_tokens)
+
     full_verdict  = verdict_text        # we’ll append to this if we reprompt
 
 # ---------- fallback reprompt --------------------------------------------

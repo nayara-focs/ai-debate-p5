@@ -23,9 +23,11 @@ TURNS_PER_MATCH = 6           # Total turns per match, including the opening tur
 SYSTEM_PROMPT = (
     "You are participating in a structured debate. "
     "Respond clearly and concisely, address your opponent's points directly, "
-    "use the context provided, and keep your responses within the token limit."
+    "use the context provided." 
+    "Keep your response concise and ensure it ends at a natural break (e.g. complete sentences)" 
+    f"within the token limit ({MAX_TOKENS_PER_RESPONSE})."
 )
-INITIAL_TOPIC = "Should we follow the recommendations of the 2023 Particle Physics P5 Report?"
+INITIAL_TOPIC = "Should the recommendations of the 2023 P5 report be adopted as-is, or should alternative strategies be considered?"
 
 # File name for the P5 report text
 P5_REPORT_FILE: Path = Path(__file__).resolve().parent /"docs"/"p5_report.txt"

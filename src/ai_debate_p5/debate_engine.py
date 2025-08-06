@@ -1,4 +1,3 @@
-# debate_engine.py
 import time
 import re
 import json
@@ -46,6 +45,8 @@ def generate_openings(
                 "content": (
                     "Respond clearly and concisely. "
                     "Provide an opening argument for the debate."
+                    "Keep your response concise and ensure it ends at a natural break"
+                    f"(e.g. complete sentences) within the token limit ({config.MAX_TOKENS_PER_RESPONSE})."
                 ),
             },
             {"role": "user", "content": prompt},
@@ -138,10 +139,11 @@ def run_debate_match(match_id,
     match_data["turns"].append({
         "turn_number": 1,
         "speaker": starting_speaker,
+        "tokens_used_prompt": usage_info.prompt_tokens,
         "tokens_used_completion": usage_info.completion_tokens,
         "content": selected_opening
     })
-    update_turn_stats(usage_info.completion_tokens)
+    update_turn_stats(usage_info.prompt_tokens, usage_info.completion_tokens)
 
     # Continue debate for subsequent turns
 
@@ -175,10 +177,11 @@ def run_debate_match(match_id,
         match_data["turns"].append({
             "turn_number": turn,
             "speaker": current_speaker,
+            "tokens_used_prompt": usage.prompt_tokens,
             "tokens_used_completion": usage.completion_tokens,
             "content": cleaned_content
         })
-        update_turn_stats(usage.completion_tokens)
+        update_turn_stats(usage.prompt_tokens,usage.completion_tokens)
 
         if turn < config.TURNS_PER_MATCH:
             next_speaker, _ = speakers[(turn) % 2]
