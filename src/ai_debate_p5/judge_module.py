@@ -7,7 +7,7 @@ def _contains_explicit_winner(text: str) -> bool:
     lower = text.lower()
     return ("pro-p5 wins" in lower) or ("against-p5 wins" in lower)
 
-def judge_debate(match_data, static_context):
+def judge_debate(match_data):
     """
     Evaluate the debate transcript and decide which debater was more persuasive.
     The function builds the debate transcript, constructs a detailed prompt, and then queries the OpenAI API
@@ -25,7 +25,6 @@ def judge_debate(match_data, static_context):
         "For each debater, briefly identify one key strength and one key area for improvement. Then, based solely on the arguments' "
         "quality, provide a clear verdict (e.g., 'Pro-P5 wins' or 'Against-P5 wins') along with a brief explanation of your reasoning.\n\n"
         "Debate Transcript:\n" + transcript + "\n\n"
-        "P5 Report Context:\n" + static_context + "\n\n"
         "Your response should be structured, first listing the strengths and weaknesses for both debaters, "
         "and then stating your final verdict with explanation."
     )

@@ -21,8 +21,14 @@ def generate_openings(
         static_context,
         initial_topic):
     """
-    Generate multiple opening arguments for the given side.
-    Returns a list of dictionaries with keys: 'text' and 'usage'.
+    Generate *boN* candidate opening arguments for the given side, then
+    return the single draft with the highest summed log-probability.
+
+    This version batches the request: we make ONE ChatCompletion call
+    with n=boN completions, so the large static_context is transmitted
+    only once.  The return value is a dict with keys:
+        • 'text'  - the chosen opening argument (str)
+        • 'usage' - the OpenAI usage object for cost tracking
     """
     prompt = (
         f"You are a debater taking the {side} side in a debate.\n\n"
@@ -30,49 +36,49 @@ def generate_openings(
         f"Context:\n{static_context}\n\n"
         "Please write your opening argument."
     )
+
+    want_logprobs = supports_logprobs(model_name)
+    response = client.chat.completions.create(
+        model=model_name,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "Respond clearly and concisely. "
+                    "Provide an opening argument for the debate."
+                ),
+            },
+            {"role": "user", "content": prompt},
+        ],
+        n=boN,                                     # generate boN completions
+        **chat_extra_kwargs(model_name, temperature),
+        logprobs=want_logprobs,
+    )
+
     best_draft = None
     best_score = -float("inf")
-    best_usage = None
 
-    for _ in range(boN):
-        # --- call the chosen model ---
-        want_logprobs = supports_logprobs(model_name)
-        response = client.chat.completions.create(
-            model=model_name,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Respond clearly and concisely. "
-                        "Provide an opening argument for the debate."
-                    ),
-                },
-                {"role": "user", "content": prompt},
-            ],
-            **chat_extra_kwargs(model_name, temperature),
-            logprobs = want_logprobs,
-        )
-        draft = response.choices[0].message.content.strip()
-
-        # --- compute simple log-prob score (handles both client shapes) ---
-
+    for choice in response.choices:
+        draft = choice.message.content.strip()
 
         if want_logprobs:
-            lp_obj = response.choices[0].logprobs
-            token_logps = lp_obj.token_logprobs if hasattr(lp_obj, "token_logprobs") \
-                  else [tok.logprob for tok in lp_obj.content]
+            lp_obj = choice.logprobs
+            token_logps = (
+                lp_obj.token_logprobs
+                if hasattr(lp_obj, "token_logprobs")
+                else [tok.logprob for tok in lp_obj.content]
+            )
             score = sum(token_logps)
         else:
-            score = 0.0      # fallback when logprobs unavailable
-
+            score = 0.0
 
         if score > best_score:
-            best_score, best_draft, best_usage = score, draft, response.usage
+            best_score = score
+            best_draft = draft
 
-        time.sleep(0.5)  # small pacing delay
-
-    # return only the best draft
+    best_usage = response.usage   # aggregated stats for all n completions
     return {"text": best_draft, "usage": best_usage}
+
 
 def run_debate_match(match_id,
                      debater_pro: dict,
@@ -181,7 +187,7 @@ def run_debate_match(match_id,
         time.sleep(1)  # Pacing delay
 
     # Invoke the judge after the debate match is complete
-    verdict = judge_debate(match_data, static_context)
+    verdict = judge_debate(match_data)
     update_match_stats(verdict)
     match_data["debater_pro"] = debater_pro["id"]
     match_data["debater_con"] = debater_con["id"]
