@@ -2,13 +2,19 @@ global_stats = {
     "total_matches": 0,
     "pro_wins": 0,
     "against_wins": 0,
-    "total_token_usage": 0,   # Sum of completion tokens across all turns
-    "total_turns": 0
+    "total_turns": 0,
+    "total_prompt_tokens": 0,        
+    "total_completion_tokens": 0,    
+    "total_token_usage": 0,          
 }
 
-def update_turn_stats(tokens_used):
-    global_stats["total_token_usage"] += tokens_used
+def update_turn_stats(prompt_tokens: int, completion_tokens: int) -> None:
+    """Accumulate prompt + completion counts for one turn."""
     global_stats["total_turns"] += 1
+    global_stats["total_prompt_tokens"]     += prompt_tokens
+    global_stats["total_completion_tokens"] += completion_tokens
+    global_stats["total_token_usage"]= (global_stats["total_prompt_tokens"] + 
+                                        global_stats["total_completion_tokens"])
 
 def update_match_stats(winner):
     global_stats["total_matches"] += 1
