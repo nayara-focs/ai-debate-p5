@@ -14,10 +14,10 @@ client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 # Debate Configuration
 # MODEL = "gpt-4o-mini"
-MODEL = "gpt-4o-mini-2024-07-18"
+MODEL = "gpt-4o-mini"
 TEMPERATURE = 0.7
-MAX_TOKENS_PER_RESPONSE = 300
-TURNS_PER_MATCH = 2           # Total turns per match, including the opening turn.
+MAX_TOKENS_PER_RESPONSE = 400
+TURNS_PER_MATCH = 6           # Total turns per match, including the opening turn.
 
 # Prompts and Topic
 SYSTEM_PROMPT = (
@@ -53,16 +53,10 @@ DEBATERS = [
         "temperature": 0.7,
         "model": "gpt-4o-mini",
     },
-    {
-        "id": "D",
-        "boN": 1,
-        "temperature": 1,
-        "model": "o3-mini",          # o-series reasoning model
-    },
 ]
 
 
-REPEATS_PER_PAIR = 1  # how many independent repeats per ordered direction
+REPEATS_PER_PAIR = 5  # how many independent repeats per ordered direction
 
 """
 Ordered pairs  :  n x (n - 1)          # product() excluding self-play
