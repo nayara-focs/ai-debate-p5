@@ -7,7 +7,7 @@ docs/*.pdf
 docs/*.docx
 references/
 examples/
-
+runs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
