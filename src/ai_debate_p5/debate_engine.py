@@ -86,7 +86,9 @@ def run_debate_match(match_id,
                      debater_con: dict,
                      static_context,
                      initial_topic,
-                     pro_starts: bool):
+                     pro_starts: bool,
+                     progress_turn_cb=None,
+                     quiet=False):
     """
     Runs one complete debate match.
     Returns the match data dictionary.
@@ -127,6 +129,9 @@ def run_debate_match(match_id,
         )
     selected_opening = result["text"]
     usage_info       = result["usage"]
+    best_completion_tokens = min(config.MAX_TOKENS_PER_RESPONSE,
+                             usage_info.completion_tokens // d["boN"])
+
 
     # Print round header then the opening (Turn 1)
     print("\n🔁 Starting Round 1")
@@ -140,10 +145,14 @@ def run_debate_match(match_id,
         "turn_number": 1,
         "speaker": starting_speaker,
         "tokens_used_prompt": usage_info.prompt_tokens,
-        "tokens_used_completion": usage_info.completion_tokens,
+        "tokens_used_completion": best_completion_tokens,
+        "tokens_used_completion_all": usage_info.completion_tokens,
         "content": selected_opening
     })
-    update_turn_stats(usage_info.prompt_tokens, usage_info.completion_tokens)
+    update_turn_stats(usage_info.prompt_tokens, best_completion_tokens)
+
+    if progress_turn_cb and quiet:
+        progress_turn_cb()
 
     # Continue debate for subsequent turns
 
@@ -183,6 +192,10 @@ def run_debate_match(match_id,
         })
         update_turn_stats(usage.prompt_tokens,usage.completion_tokens)
 
+        # per-turn progress dot (quiet mode only)
+        if progress_turn_cb and quiet:
+            progress_turn_cb()
+
         if turn < config.TURNS_PER_MATCH:
             next_speaker, _ = speakers[(turn) % 2]
             messages.append({"role": "user", "content": f"{next_speaker}, please respond to your opponent."})
@@ -200,7 +213,7 @@ def run_debate_match(match_id,
 
 
 
-def run_all_matches(static_context, initial_topic):
+def run_all_matches(static_context, initial_topic, progress_cb=None, progress_turn_cb=None, quiet=False):
     matches_data = []
     debs = config.DEBATERS
     match_id = 1
@@ -218,10 +231,17 @@ def run_all_matches(static_context, initial_topic):
             print("===========================")
 
             m = run_debate_match(match_id, deb_pro, deb_con,
-                                 static_context, initial_topic,
-                                 pro_starts=True)
+                         static_context, initial_topic,
+                         pro_starts=True,
+                         progress_turn_cb=progress_turn_cb,
+                         quiet=quiet)
             matches_data.append(m)
-            print(f"\n✅ Debate Match {match_id} complete.")
+
+            if progress_cb:
+                progress_cb()
+            if not quiet:
+                print(f"\n✅ Debate Match {match_id} complete.")
+
             match_id += 1
 
             # -------- direction 2: Con side opens ------------
@@ -232,10 +252,17 @@ def run_all_matches(static_context, initial_topic):
             print("===========================")
 
             m = run_debate_match(match_id, deb_con, deb_pro,
-                                 static_context, initial_topic,
-                                 pro_starts=False)
+                         static_context, initial_topic,
+                         pro_starts=True,
+                         progress_turn_cb=progress_turn_cb,
+                         quiet=quiet)
             matches_data.append(m)
-            print(f"\n✅ Debate Match {match_id} complete.")
+
+            if progress_cb:
+                progress_cb()
+            if not quiet:
+                print(f"\n✅ Debate Match {match_id} complete.")
+
             match_id += 1
 
     return matches_data
