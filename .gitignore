@@ -3,11 +3,15 @@
 
 # private or heavyweight local folders
 DEV/
-docs/*.pdf
-docs/*.docx
+docs/
 references/
 examples/
+runs/
+plots/
 
+# ignore result artefacts
+*.csv
+*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
