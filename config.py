@@ -27,10 +27,13 @@ SYSTEM_PROMPT = (
     "Keep your response concise and ensure it ends at a natural break (e.g. complete sentences)" 
     f"within the token limit ({MAX_TOKENS_PER_RESPONSE})."
 )
-INITIAL_TOPIC = "Should the recommendations of the 2023 P5 report be adopted as-is, or should alternative strategies be considered?"
+INITIAL_TOPIC = "Given the following two official planning documents (US 2023 P5 report and CERN’s 2025 FCC Feasibility Study)," 
+"what is the most compelling strategy for advancing high-energy physics over the next decade? Compare scientific reach, timelines,"
+"cost/risk, and international coordination. Argue as assigned."
 
-# File name for the P5 report text
-P5_REPORT_FILE: Path = Path(__file__).resolve().parent /"docs"/"p5_report.txt"
+
+# File name 
+P5_REPORT_FILE: Path = Path(__file__).resolve().parent /"docs"/"context_p5_plus_fcc.txt"
 
 # ------------------------------------------------------------------
 # Debater roster for Elo experiment (budget-trimmed)
