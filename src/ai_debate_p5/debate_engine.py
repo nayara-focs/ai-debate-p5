@@ -253,7 +253,7 @@ def run_all_matches(static_context, initial_topic, progress_cb=None, progress_tu
 
             m = run_debate_match(match_id, deb_con, deb_pro,
                          static_context, initial_topic,
-                         pro_starts=True,
+                         pro_starts=False,
                          progress_turn_cb=progress_turn_cb,
                          quiet=quiet)
             matches_data.append(m)
