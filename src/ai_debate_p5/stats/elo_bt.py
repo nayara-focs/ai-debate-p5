@@ -9,53 +9,76 @@ import math
 import json
 from pathlib import Path
 from typing import List, Tuple
+import re
 
 import numpy as np
 from scipy.optimize import minimize
 from scipy.special import expit
 
+_WINNER_LINE = re.compile(r'^\s*WINNER:\s*(.+?)\s*$', re.I | re.M)
+
 
 # ---------- helper: build win-matrix from a log ------------------------
 
-def win_matrix_from_log(log_path: str, debater_ids: List[str]) -> np.ndarray:
+def _winner_label(match):
+    # Preferred: structured field written by judge_module
+    w = match.get("winner") or match.get("judge_evaluation", {}).get("winner")
+    if w:
+        return w
+    # Fallback: parse strict WINNER line from verdict text
+    v = match.get("verdict") or match.get("judge_evaluation", {}).get("verdict", "")
+    m = _WINNER_LINE.search(v)
+    return m.group(1).strip() if m else None
+
+
+def win_matrix_from_log(log_path: str, debater_ids):
     """
-    Parse the JSON log saved by run_debate.py and return a matrix
-    w[i,j] = number of times debater i beat debater j.
-    Requires that each match dict stores:
-        "debater_pro", "debater_con", "verdict".
+    Build a winner matrix W where W[i,j] = wins of debater debater_ids[i] over debater_ids[j].
+    Robust to neutral labels ("Strategy 1/2") and to older logs.
     """
+    with open(log_path, "r") as f:
+        log = json.load(f)
 
-    with Path(log_path).open("r") as f:
-        data = json.load(f)
+    id2idx = {d: i for i, d in enumerate(debater_ids)}
+    W = np.zeros((len(debater_ids), len(debater_ids)), dtype=int)
 
-    # The run_debate script stores {"matches": [...]}.
-    # Accept either wrapped or bare list for robustness.
-    matches = data["matches"] if isinstance(data, dict) and "matches" in data else data
+    for m in log.get("matches", []):
+        wlab = _winner_label(m)
+        if not wlab:
+            continue  # skip if no clear winner
 
-    id2idx = {d: k for k, d in enumerate(debater_ids)}
-    w = np.zeros((len(debater_ids), len(debater_ids)), dtype=int)
+        # Preferred mapping: explicit neutral mapping (if present in newer logs)
+        side2id = m.get("side_to_debater_id")
+        if not side2id:
+            # Fallback mapping from first two speakers to legacy fields
+            turns = m.get("turns", [])
+            if len(turns) < 2:
+                continue
+            s1 = turns[0]["speaker"]
+            s2 = turns[1]["speaker"]
+            pro = m.get("debater_pro")
+            con = m.get("debater_con")
+            if pro is None or con is None:
+                continue
+            side2id = {s1: pro, s2: con}
 
-    for m in matches:
-        pro = m["debater_pro"]
-        con = m["debater_con"]
-        verdict = m["verdict"]
+        if wlab not in side2id:
+            continue  # label mismatch; skip defensively
 
-        v_lc = verdict.lower()
-
-        if "pro-p5 wins" in v_lc:
-            winner, loser = pro, con
-        elif "against-p5 wins" in v_lc:
-            winner, loser = con, pro
-        else:
-            # unrecognised verdict → skip
+        win_id = side2id[wlab]
+        # loser is whichever side isn't the winner
+        lose_ids = [v for k, v in side2id.items() if k != wlab]
+        if not lose_ids:
             continue
-        
-        w[id2idx[winner], id2idx[loser]] += 1
-    
+        lose_id = lose_ids[0]
+
+        if win_id in id2idx and lose_id in id2idx:
+            W[id2idx[win_id], id2idx[lose_id]] += 1
+
     # --- DEBUG: inspect win-count matrix ---------------------------
-    print("\nWin matrix (rows = winners, cols = losers)\n", w, "\n")
+    print("\nWin matrix (rows = winners, cols = losers)\n", W, "\n")
     # ---------------------------------------------------------------
-    return w
+    return W
 
 
 # ---------- Bradley–Terry negative log-likelihood + gradient -----------

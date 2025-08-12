@@ -82,14 +82,15 @@ def main():
     # Compute average tokens per turn and update global stats
     avg_tokens = compute_average_tokens_per_turn()
     global_stats["average_tokens_per_turn"] = avg_tokens
+    wins_by_label = global_stats.get("wins_by_label", {})
 
     # Print global 
     
     
     print("\n📊 Global Statistics:")
     print(f"Total Matches: {global_stats['total_matches']}")
-    print(f"Pro-P5 Wins: {global_stats['pro_wins']}")
-    print(f"Against-P5 Wins: {global_stats['against_wins']}")
+    for label, count in wins_by_label.items():
+        print(f"  {label}: {count}")
     print(f"Total Token Usage: {global_stats['total_token_usage']}")
     print(f"Total Turns: {global_stats['total_turns']}")
     print(f"Average Tokens per Turn: {avg_tokens:.2f}")

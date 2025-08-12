@@ -1,7 +1,7 @@
 import re
 import config
 from config import client
-from ai_debate_p5.stats_module import update_turn_stats
+from ai_debate_p5.stats_module import update_turn_stats, update_judge_stats
 
 
 WINNER_RE = re.compile(r'^\s*WINNER:\s*(.+?)\s*$', re.IGNORECASE | re.MULTILINE)
@@ -37,17 +37,6 @@ def judge_debate(match_data):
     side2 = match_data["turns"][1]["speaker"] if len(match_data["turns"]) > 1 else ("Strategy 2" if side1 != "Strategy 2" else "Strategy 1")
     allowed = (side1, side2)
 
-
-    # judge_prompt = (
-    #     "You are an impartial judge. Your task is to evaluate the debate transcript strictly based on the strength, clarity, "
-    #     "and persuasiveness of the arguments presented by each debater. Do not assume any inherent bias from the P5 report context. "
-    #     "For each debater, briefly identify one key strength and one key area for improvement. Then, based solely on the arguments' "
-    #     "quality, provide a clear verdict (e.g., 'Pro-P5 wins' or 'Against-P5 wins') along with a brief explanation of your reasoning.\n\n"
-    #     "Debate Transcript:\n" + transcript + "\n\n"
-    #     "Your response should be structured, first listing the strengths and weaknesses for both debaters, "
-    #     "and then stating your final verdict with explanation. Keep your verdict within the token limit"
-    #     f" ({config.MAX_TOKENS_PER_RESPONSE} tokens), ending at a complete sentence."
-    # )
     judge_prompt = (
         "You are an impartial judge. Evaluate the debate strictly based on the transcript below (no external knowledge). "
         "For each side, briefly note one key strength and one key area for improvement. Then decide which side was more persuasive.\n\n"
@@ -69,8 +58,9 @@ def judge_debate(match_data):
     max_tokens=400,
 )
     verdict_text = judge_response.choices[0].message.content.strip()
-    update_turn_stats(judge_response.usage.prompt_tokens,
-                  judge_response.usage.completion_tokens)
+    update_judge_stats(judge_response.usage.prompt_tokens,
+                        judge_response.usage.completion_tokens)
+
 
     winner = _extract_winner(verdict_text, allowed)
     full_verdict  = verdict_text        

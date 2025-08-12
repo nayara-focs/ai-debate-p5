@@ -205,9 +205,21 @@ def run_debate_match(match_id,
 
     # Invoke the judge after the debate match is complete
     verdict = judge_debate(match_data)
-    update_match_stats(verdict)
+    winner = match_data.get("judge_evaluation", {}).get("winner")
+    match_data["winner"] = winner
+    update_match_stats(winner_label=winner, verdict_text=verdict)
+    # Legacy fields
     match_data["debater_pro"] = debater_pro["id"]
     match_data["debater_con"] = debater_con["id"]
+    # New neutral 
+    match_data["side_labels"] = [SIDE_A_LABEL, SIDE_B_LABEL]
+    match_data["side_to_debater_id"] = {
+    SIDE_A_LABEL: debater_pro["id"],   # Strategy 1 by our convention
+    SIDE_B_LABEL: debater_con["id"],   # Strategy 2
+    }
+    match_data["start_label"] = speakers[0][0]        # who opened
+    match_data["winner"] = match_data.get("judge_evaluation", {}).get("winner")
+
     match_data["verdict"]     = verdict
 
     return match_data
