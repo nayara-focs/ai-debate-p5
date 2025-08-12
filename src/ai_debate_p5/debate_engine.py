@@ -166,8 +166,15 @@ def run_debate_match(match_id,
         current_speaker, emoji = speakers[(turn - 1) % 2]
         print(f"\n{emoji} {current_speaker}'s Turn {turn}")
 
-        messages.append({"role": "user", "content": f"{current_speaker}, please respond to your opponent."})
-
+        stance = SIDE_STANCE.get(current_speaker, "")
+        messages.append({
+                    "role": "user",
+                    "content": (
+                    f"You are advocating for {current_speaker}. {stance}\n"
+                    "Base your response only on the provided context.\n\n"
+                    f"{current_speaker}, please respond to your opponent."
+                    ),
+                    })
         # Get the debater's model and temperature
         d = debater_map[current_speaker]
         model_name  = d["model"]
@@ -199,8 +206,15 @@ def run_debate_match(match_id,
 
         if turn < config.TURNS_PER_MATCH:
             next_speaker, _ = speakers[(turn) % 2]
-            messages.append({"role": "user", "content": f"{next_speaker}, please respond to your opponent."})
-        
+            stance = SIDE_STANCE.get(current_speaker, "")
+            messages.append({
+                "role": "user",
+                "content": (
+                f"You are advocating for {current_speaker}. {stance}\n"
+                "Base your response only on the provided context.\n\n"
+                f"{current_speaker}, please respond to your opponent."
+                ),
+                })
         time.sleep(1)  # Pacing delay
 
     # Invoke the judge after the debate match is complete
