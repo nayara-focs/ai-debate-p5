@@ -4,7 +4,7 @@ import json
 import openai
 from datetime import datetime
 import config
-from config import client, SIDE_A_LABEL, SIDE_B_LABEL 
+from config import client, SIDE_A_LABEL, SIDE_B_LABEL,SIDE_STANCE 
 from .utils_openai import chat_extra_kwargs, supports_logprobs
 from itertools import product
 
@@ -29,12 +29,13 @@ def generate_openings(
         • 'text'  - the chosen opening argument (str)
         • 'usage' - the OpenAI usage object for cost tracking
     """
+    stance_text = SIDE_STANCE.get(side, "")
     prompt = (
-        f"You are a debater taking the {side} side in a debate.\n\n"
-        f"Debate topic: {initial_topic}\n\n"
-        f"Context:\n{static_context}\n\n"
-        "Please write your opening argument."
-    )
+    f"You are a debater advocating for {side}. {stance_text}\n\n"
+    f"Debate topic: {initial_topic}\n\n"
+    f"Context:\n{static_context}\n\n"
+    "Please write your opening argument. Use only the provided context."
+)
 
     want_logprobs = supports_logprobs(model_name)
     response = client.chat.completions.create(
