@@ -47,7 +47,7 @@ def load_static_context(filename):
         return f.read()
 
 def main():
-    static_context = load_static_context(config.P5_REPORT_FILE)
+    static_context = load_static_context(config.STATIC_CONTEXT_FILE)
 
     total_expected = (
         len(config.DEBATERS) * (len(config.DEBATERS) - 1) * 2

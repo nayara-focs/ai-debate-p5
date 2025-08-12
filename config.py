@@ -36,7 +36,7 @@ INITIAL_TOPIC = (
 
 
 # File name 
-P5_REPORT_FILE: Path = Path(__file__).resolve().parent /"docs"/"context_p5_plus_fcc.txt"
+STATIC_CONTEXT_FILE: Path = Path(__file__).resolve().parent /"docs"/"context_p5_plus_fcc.txt"
 
 # ------------------------------------------------------------------
 # Debater roster for Elo experiment (budget-trimmed)
