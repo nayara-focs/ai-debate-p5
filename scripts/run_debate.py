@@ -4,6 +4,7 @@ import config
 import sys
 from math import prod
 from pathlib import Path
+import hashlib
 
 
 # package-relative imports
@@ -48,6 +49,23 @@ def load_static_context(filename):
 
 def main():
     static_context = load_static_context(config.STATIC_CONTEXT_FILE)
+
+    # --- context fingerprint for reproducibility ---
+
+    ctx_path = config.STATIC_CONTEXT_FILE
+    # Make sure we have a string path for JSON stats:
+    try:
+        ctx_path_str = str(ctx_path)  # handles Path objects too
+    except Exception:
+        ctx_path_str = f"{ctx_path}"
+
+    with open(ctx_path, "rb") as f:
+        _ctx_bytes = f.read()
+
+    global_stats["context_path"]   = ctx_path_str
+    global_stats["context_bytes"]  = len(_ctx_bytes)
+    global_stats["context_sha256"] = hashlib.sha256(_ctx_bytes).hexdigest()
+# -----------------------------------------------------------
 
     total_expected = (
         len(config.DEBATERS) * (len(config.DEBATERS) - 1) * 2
