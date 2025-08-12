@@ -4,7 +4,7 @@ import json
 import openai
 from datetime import datetime
 import config
-from config import client  # Import the client from 
+from config import client, SIDE_A_LABEL, SIDE_B_LABEL 
 from .utils_openai import chat_extra_kwargs, supports_logprobs
 from itertools import product
 
@@ -100,15 +100,15 @@ def run_debate_match(match_id,
     }
     
 
-    speakers = [("Pro-P5", "🔵"), ("Against-P5", "🔴")] if pro_starts \
-         else [("Against-P5", "🔴"), ("Pro-P5", "🔵")]
+    speakers = [(SIDE_A_LABEL, "🔵"), (SIDE_B_LABEL, "🔴")] if pro_starts \
+     else [(SIDE_B_LABEL, "🔴"), (SIDE_A_LABEL, "🔵")]
 
     debater_map = {
-    "Pro-P5":     debater_pro,
-    "Against-P5": debater_con,
-    }
+    SIDE_A_LABEL: debater_pro,  # Strategy 1
+    SIDE_B_LABEL: debater_con,  # Strategy 2
+}
     starting_speaker, starting_emoji = speakers[0]
-    side_label = starting_speaker.split("-")[0]   # "Pro" or "Against"
+    side_label = starting_speaker
 
 
     messages = [
@@ -120,7 +120,7 @@ def run_debate_match(match_id,
 
     d = debater_map[starting_speaker]
     result = generate_openings(
-            side=starting_speaker.split("-")[0],   # "Pro" or "Against"
+            side=starting_speaker,   
             boN=d["boN"],
             temperature=d["temperature"],
             model_name=d["model"],

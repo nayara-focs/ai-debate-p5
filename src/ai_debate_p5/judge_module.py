@@ -4,10 +4,20 @@ from config import client
 from ai_debate_p5.stats_module import update_turn_stats
 
 
-def _contains_explicit_winner(text: str) -> bool:
-    """Returns True iff text has the required 'Pro-P5 wins' or 'Against-P5 wins'."""
+WINNER_RE = re.compile(r'^\s*WINNER:\s*(.+?)\s*$', re.IGNORECASE | re.MULTILINE)
+
+def _extract_winner(text: str, allowed_labels):
+    m = WINNER_RE.search(text)
+    if m:
+        cand = m.group(1).strip()
+        if cand in allowed_labels:
+            return cand
+    # legacy fallback: "<LABEL> wins"
     lower = text.lower()
-    return ("pro-p5 wins" in lower) or ("against-p5 wins" in lower)
+    for lab in allowed_labels:
+        if f"{lab.lower()} wins" in lower:
+            return lab
+    return None
 
 def judge_debate(match_data):
     """
@@ -21,17 +31,31 @@ def judge_debate(match_data):
         transcript_lines.append(f"Turn {turn['turn_number']} - {turn['speaker']}: {turn['content']}")
     transcript = "\n".join(transcript_lines)
     
+
+    # === Derive the two side labels directly from the first two turns ===
+    side1 = match_data["turns"][0]["speaker"]
+    side2 = match_data["turns"][1]["speaker"] if len(match_data["turns"]) > 1 else ("Strategy 2" if side1 != "Strategy 2" else "Strategy 1")
+    allowed = (side1, side2)
+
+
+    # judge_prompt = (
+    #     "You are an impartial judge. Your task is to evaluate the debate transcript strictly based on the strength, clarity, "
+    #     "and persuasiveness of the arguments presented by each debater. Do not assume any inherent bias from the P5 report context. "
+    #     "For each debater, briefly identify one key strength and one key area for improvement. Then, based solely on the arguments' "
+    #     "quality, provide a clear verdict (e.g., 'Pro-P5 wins' or 'Against-P5 wins') along with a brief explanation of your reasoning.\n\n"
+    #     "Debate Transcript:\n" + transcript + "\n\n"
+    #     "Your response should be structured, first listing the strengths and weaknesses for both debaters, "
+    #     "and then stating your final verdict with explanation. Keep your verdict within the token limit"
+    #     f" ({config.MAX_TOKENS_PER_RESPONSE} tokens), ending at a complete sentence."
+    # )
     judge_prompt = (
-        "You are an impartial judge. Your task is to evaluate the debate transcript strictly based on the strength, clarity, "
-        "and persuasiveness of the arguments presented by each debater. Do not assume any inherent bias from the P5 report context. "
-        "For each debater, briefly identify one key strength and one key area for improvement. Then, based solely on the arguments' "
-        "quality, provide a clear verdict (e.g., 'Pro-P5 wins' or 'Against-P5 wins') along with a brief explanation of your reasoning.\n\n"
+        "You are an impartial judge. Evaluate the debate strictly based on the transcript below (no external knowledge). "
+        "For each side, briefly note one key strength and one key area for improvement. Then decide which side was more persuasive.\n\n"
+        f"At the very end, write exactly one line: WINNER: {side1} or WINNER: {side2}. "
+        "Do not add any text after that line.\n\n"
         "Debate Transcript:\n" + transcript + "\n\n"
-        "Your response should be structured, first listing the strengths and weaknesses for both debaters, "
-        "and then stating your final verdict with explanation. Keep your verdict within the token limit"
-        f" ({config.MAX_TOKENS_PER_RESPONSE} tokens), ending at a complete sentence."
+        f"Keep your response concise and end at a natural boundary within {config.MAX_TOKENS_PER_RESPONSE} tokens."
     )
-    
 
 
     # ---------- first attempt -------------------------------------------------
@@ -48,32 +72,25 @@ def judge_debate(match_data):
     update_turn_stats(judge_response.usage.prompt_tokens,
                   judge_response.usage.completion_tokens)
 
-    full_verdict  = verdict_text        # we’ll append to this if we reprompt
+    winner = _extract_winner(verdict_text, allowed)
+    full_verdict  = verdict_text        
 
 # ---------- fallback reprompt --------------------------------------------
-    if not _contains_explicit_winner(verdict_text):
-        print("Judge omitted explicit winner: REPROMPTING")
-
-        follow_up = [
-        {"role": "system",
-         "content": (
-             "You forgot to state the winner explicitly. "
-             "Reply with **exactly one line**:\n"
-             "Pro-P5 wins\nor\nAgainst-P5 wins"
-         )},
-    ]
+    if winner is None:
         reprompt = client.chat.completions.create(
-        model=config.MODEL,
-        messages=follow_up,
-        temperature=0,
-        max_tokens=10,
-    )
+            model=config.MODEL,
+            messages=[{
+                "role": "system",
+                "content": f"Reply with exactly one line: WINNER: {side1} or WINNER: {side2}"
+            }],
+            temperature=0,
+            max_tokens=10,
+        )
         short_line = reprompt.choices[0].message.content.strip()
         full_verdict += "\n\n--- reprompt ---\n" + short_line
+        winner = _extract_winner(short_line, allowed)
 
-    # keep original variable names for the rest of the function
     verdict = full_verdict
-
     judge_usage = judge_response.usage
     
     print("\n📢 Judge's Evaluation:")
@@ -83,6 +100,7 @@ def judge_debate(match_data):
     
     match_data["judge_evaluation"] = {
         "verdict": verdict,
+        "winner": winner,
         "token_usage": {
             "prompt_tokens": judge_usage.prompt_tokens,
             "completion_tokens": judge_usage.completion_tokens,

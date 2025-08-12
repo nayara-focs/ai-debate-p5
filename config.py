@@ -38,6 +38,15 @@ INITIAL_TOPIC = (
 # File name 
 STATIC_CONTEXT_FILE: Path = Path(__file__).resolve().parent /"docs"/"context_p5_plus_fcc.txt"
 
+SIDE_A_LABEL = "Strategy 1"
+SIDE_B_LABEL = "Strategy 2"
+ALLOWED_LABELS = (SIDE_A_LABEL, SIDE_B_LABEL)
+
+SIDE_STANCE = {
+    SIDE_A_LABEL: "Emphasise the US P5-aligned roadmap.",
+    SIDE_B_LABEL: "Emphasise the FCC-first roadmap.",
+}
+
 # ------------------------------------------------------------------
 # Debater roster for Elo experiment (budget-trimmed)
 # ------------------------------------------------------------------
