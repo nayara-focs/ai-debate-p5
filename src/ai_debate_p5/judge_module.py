@@ -76,6 +76,7 @@ def judge_debate(match_data):
             temperature=0,
             max_tokens=10,
         )
+        update_judge_stats(reprompt.usage.prompt_tokens, reprompt.usage.completion_tokens)
         short_line = reprompt.choices[0].message.content.strip()
         full_verdict += "\n\n--- reprompt ---\n" + short_line
         winner = _extract_winner(short_line, allowed)
