@@ -23,13 +23,16 @@ TURNS_PER_MATCH = 6           # Total turns per match, including the opening tur
 SYSTEM_PROMPT = (
     "You are participating in a structured debate. "
     "Respond clearly and concisely, address your opponent's points directly, "
-    "use the context provided." 
-    "Keep your response concise and ensure it ends at a natural break (e.g. complete sentences)" 
+    "use the context provided. "
+    "Keep your response concise and ensure it ends at a natural break (e.g. complete sentences) "
     f"within the token limit ({MAX_TOKENS_PER_RESPONSE})."
 )
-INITIAL_TOPIC = "Given the following two official planning documents (US 2023 P5 report and CERN’s 2025 FCC Feasibility Study)," 
-"what is the most compelling strategy for advancing high-energy physics over the next decade? Compare scientific reach, timelines,"
-"cost/risk, and international coordination. Argue as assigned."
+
+INITIAL_TOPIC = (
+    "Given the following two official planning documents (US 2023 P5 report and CERN's 2025 FCC Feasibility Study), "
+    "what is the most compelling strategy for advancing high-energy physics over the next decade? "
+    "Compare scientific reach, timelines, cost/risk, and international coordination. Argue as assigned."
+)
 
 
 # File name 
