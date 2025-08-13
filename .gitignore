@@ -3,8 +3,13 @@
 
 # private or heavyweight local folders
 DEV/
+
+# docs: ignore all .pdf/.docx/.txt, except the single context file
 docs/*.pdf
-!docs/*.txt
+docs/*.docx
+docs/*.txt
+!docs/context_p5_plus_fcc.txt
+
 references/
 examples/
 runs/
