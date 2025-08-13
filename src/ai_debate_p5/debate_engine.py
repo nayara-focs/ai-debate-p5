@@ -12,6 +12,20 @@ from itertools import product
 from .judge_module import judge_debate
 from .stats_module import global_stats, update_turn_stats, update_match_stats
 
+_END_PUNCT = re.compile(r'[.!?]["”\']?\s*$')
+
+def _trim_to_sentence_boundary(text: str, tail: int = 120) -> str:
+    """
+    If the output likely ends mid-sentence, trim back to the last .!? within ~tail chars.
+    Keeps text unchanged if it already ends at a clean boundary.
+    """
+    t = (text or "").strip()
+    if _END_PUNCT.search(t):
+        return t
+    cut = max(t.rfind('.'), t.rfind('!'), t.rfind('?'))
+    # only trim if the boundary is near the end; else keep as is
+    return (t[:cut+1].strip() if cut != -1 and (len(t) - cut) <= tail else t)
+
 def generate_openings(
         side: str,
         boN: int,
@@ -43,12 +57,7 @@ def generate_openings(
         messages=[
             {
                 "role": "system",
-                "content": (
-                    "Respond clearly and concisely. "
-                    "Provide an opening argument for the debate."
-                    "Keep your response concise and ensure it ends at a natural break"
-                    f"(e.g. complete sentences) within the token limit ({config.MAX_TOKENS_PER_RESPONSE})."
-                ),
+                "content": config.SYSTEM_PROMPT,
             },
             {"role": "user", "content": prompt},
         ],
@@ -129,6 +138,8 @@ def run_debate_match(match_id,
             initial_topic=initial_topic,
         )
     selected_opening = result["text"]
+    selected_opening = _trim_to_sentence_boundary(selected_opening)
+
     usage_info       = result["usage"]
     best_completion_tokens = min(config.MAX_TOKENS_PER_RESPONSE,
                              usage_info.completion_tokens // d["boN"])
@@ -187,6 +198,8 @@ def run_debate_match(match_id,
         content = response.choices[0].message.content
         usage = response.usage
         cleaned_content = re.sub(r'【.*?†source】', '', content).strip()
+        cleaned_content = _trim_to_sentence_boundary(cleaned_content)
+
         print(f"{emoji} [Prompt tokens: {usage.prompt_tokens}, Completion tokens: {usage.completion_tokens}, Total tokens: {usage.total_tokens}]")
         print(cleaned_content)
 
@@ -211,7 +224,7 @@ def run_debate_match(match_id,
                 "role": "user",
                 "content": (
                 f"You are advocating for {current_speaker}. {stance}\n"
-                "Base your response only on the provided context.\n\n"
+                "Base your response only on the provided context. Do not include salutations.\n\n"
                 f"{current_speaker}, please respond to your opponent."
                 ),
                 })
