@@ -25,6 +25,7 @@ SYSTEM_PROMPT = (
     "Respond clearly and concisely, address your opponent's points directly, and base your answer only on the provided context. "
     "Use a concise, professional tone—no salutations or rhetorical flourishes. "
     "End at a complete sentence; if you are near the token limit, finish the current sentence and stop. "
+    "Finish with a one-sentence takeaway if needed. "
     f"Keep your response within the token limit ({MAX_TOKENS_PER_RESPONSE})."
 )
 
