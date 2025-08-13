@@ -14,7 +14,7 @@ from .stats_module import global_stats, update_turn_stats, update_match_stats
 
 _END_PUNCT = re.compile(r'[.!?]["”\']?\s*$')
 
-def _trim_to_sentence_boundary(text: str, tail: int = 120) -> str:
+def _trim_to_sentence_boundary(text: str, tail: int = 240) -> str:
     """
     If the output likely ends mid-sentence, trim back to the last .!? within ~tail chars.
     Keeps text unchanged if it already ends at a clean boundary.
