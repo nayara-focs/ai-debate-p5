@@ -3,7 +3,8 @@
 
 # private or heavyweight local folders
 DEV/
-docs/
+docs/*.pdf
+!docs/*.txt
 references/
 examples/
 runs/
