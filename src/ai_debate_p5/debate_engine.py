@@ -92,11 +92,11 @@ def generate_openings(
 
 
 def run_debate_match(match_id,
-                     debater_pro: dict,
-                     debater_con: dict,
+                     debater_side_a: dict,
+                     debater_side_b: dict,
                      static_context,
                      initial_topic,
-                     pro_starts: bool,
+                     side_a_starts: bool,
                      progress_turn_cb=None,
                      quiet=False):
     """
@@ -110,12 +110,12 @@ def run_debate_match(match_id,
     }
     
 
-    speakers = [(SIDE_A_LABEL, "🔵"), (SIDE_B_LABEL, "🔴")] if pro_starts \
+    speakers = [(SIDE_A_LABEL, "🔵"), (SIDE_B_LABEL, "🔴")] if side_a_starts \
      else [(SIDE_B_LABEL, "🔴"), (SIDE_A_LABEL, "🔵")]
 
     debater_map = {
-    SIDE_A_LABEL: debater_pro,  # Strategy 1
-    SIDE_B_LABEL: debater_con,  # Strategy 2
+    SIDE_A_LABEL: debater_side_a,  # Strategy 1
+    SIDE_B_LABEL: debater_side_b,  # Strategy 2
 }
     starting_speaker, starting_emoji = speakers[0]
     side_label = starting_speaker
@@ -223,9 +223,9 @@ def run_debate_match(match_id,
             messages.append({
                 "role": "user",
                 "content": (
-                f"You are advocating for {current_speaker}. {stance}\n"
+                f"You are advocating for {next_speaker}. {stance}\n"
                 "Base your response only on the provided context. Do not include salutations.\n\n"
-                f"{current_speaker}, please respond to your opponent."
+                f"{next_speaker}, please respond to your opponent."
                 ),
                 })
         time.sleep(1)  # Pacing delay
@@ -235,14 +235,10 @@ def run_debate_match(match_id,
     winner = match_data.get("judge_evaluation", {}).get("winner")
     match_data["winner"] = winner
     update_match_stats(winner_label=winner, verdict_text=verdict)
-    # Legacy fields
-    match_data["debater_pro"] = debater_pro["id"]
-    match_data["debater_con"] = debater_con["id"]
-    # New neutral 
     match_data["side_labels"] = [SIDE_A_LABEL, SIDE_B_LABEL]
     match_data["side_to_debater_id"] = {
-    SIDE_A_LABEL: debater_pro["id"],   # Strategy 1 by our convention
-    SIDE_B_LABEL: debater_con["id"],   # Strategy 2
+    SIDE_A_LABEL: debater_side_a["id"],   # Strategy 1 
+    SIDE_B_LABEL: debater_side_b["id"],   # Strategy 2
     }
     match_data["start_label"] = speakers[0][0]        # who opened
     match_data["winner"] = match_data.get("judge_evaluation", {}).get("winner")
@@ -263,16 +259,16 @@ def run_all_matches(static_context, initial_topic, progress_cb=None, progress_tu
             continue  # skip self-play
 
         for rep in range(1, config.REPEATS_PER_PAIR + 1):
-            # -------- direction 1: Pro side opens ------------
+            # -------- direction 1: {SIDE_A_LABEL} opens ------------
             print("\n===========================")
             print(f"🔁 Starting Debate Match {match_id} "
-                  f"[{deb_pro['id']}-Pro  vs  {deb_con['id']}-Con] "
-                  f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
+            f"[{deb_pro['id']}-{SIDE_A_LABEL}  vs  {deb_con['id']}-{SIDE_B_LABEL}] "
+            f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
             print("===========================")
 
             m = run_debate_match(match_id, deb_pro, deb_con,
                          static_context, initial_topic,
-                         pro_starts=True,
+                         side_a_starts=True,
                          progress_turn_cb=progress_turn_cb,
                          quiet=quiet)
             matches_data.append(m)
@@ -284,16 +280,16 @@ def run_all_matches(static_context, initial_topic, progress_cb=None, progress_tu
 
             match_id += 1
 
-            # -------- direction 2: Con side opens ------------
+            # -------- direction 2: {SIDE_B_LABEL} opens ------------
             print("\n===========================")
             print(f"🔁 Starting Debate Match {match_id} "
-                  f"[{deb_con['id']}-Pro  vs  {deb_pro['id']}-Con] "
-                  f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
+            f"[{deb_con['id']}-{SIDE_A_LABEL}  vs  {deb_pro['id']}-{SIDE_B_LABEL}] "
+            f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
             print("===========================")
 
             m = run_debate_match(match_id, deb_con, deb_pro,
                          static_context, initial_topic,
-                         pro_starts=False,
+                         side_a_starts=False,
                          progress_turn_cb=progress_turn_cb,
                          quiet=quiet)
             matches_data.append(m)

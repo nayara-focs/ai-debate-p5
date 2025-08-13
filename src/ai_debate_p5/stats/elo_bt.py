@@ -56,11 +56,13 @@ def win_matrix_from_log(log_path: str, debater_ids):
                 continue
             s1 = turns[0]["speaker"]
             s2 = turns[1]["speaker"]
-            pro = m.get("debater_pro")
-            con = m.get("debater_con")
-            if pro is None or con is None:
+            # prefer neutral names; fall back to legacy if absent (for old logs)
+            a = m.get("debater_side_a") or m.get("debater_pro")
+            b = m.get("debater_side_b") or m.get("debater_con")
+            if a is None or b is None:
                 continue
-            side2id = {s1: pro, s2: con}
+            side2id = {s1: a, s2: b}
+
 
         if wlab not in side2id:
             continue  # label mismatch; skip defensively
