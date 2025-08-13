@@ -182,7 +182,7 @@ def run_debate_match(match_id,
                     "role": "user",
                     "content": (
                     f"You are advocating for {current_speaker}. {stance}\n"
-                    "Base your response only on the provided context.\n\n"
+                    "Base your response only on the provided context. Do not include salutations.\n\n"
                     f"{current_speaker}, please respond to your opponent."
                     ),
                     })
