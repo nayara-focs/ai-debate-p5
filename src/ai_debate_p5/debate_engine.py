@@ -15,7 +15,7 @@ from .stats_module import global_stats, update_turn_stats, update_match_stats
 _END_PUNCT = re.compile(r'[.!?]["”\']?\s*$')
 
 
-def _trim_to_sentence_boundary(text: str, tail: int = 240) -> str:
+def _trim_to_sentence_boundary(text: str, tail: int = 300) -> str:
     """
     If the output likely ends mid-sentence, trim back to the last .!? within ~tail chars.
     Keeps text unchanged if it already ends at a clean boundary.
@@ -193,7 +193,7 @@ def run_debate_match(match_id,
     "role": "user",
     "content": (
         f"You are advocating for {next_speaker}. {next_stance}\n"
-        "Base your response only on the provided context. Do not include salutations.\n\n"
+        "Base your response only on the provided context. Do not include salutations. End on a complete sentence; do not stop mid-sentence.\n\n"
         f"{next_speaker}, please respond to your opponent."
     ),
     })
