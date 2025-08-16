@@ -4,7 +4,7 @@ import json
 import openai
 from datetime import datetime
 import config
-from config import client, SIDE_A_LABEL, SIDE_B_LABEL,SIDE_STANCE 
+from config import client, SIDE_A_LABEL, SIDE_B_LABEL 
 from .utils_openai import chat_extra_kwargs, supports_logprobs
 from itertools import product
 
@@ -13,6 +13,7 @@ from .judge_module import judge_debate
 from .stats_module import global_stats, update_turn_stats, update_match_stats
 
 _END_PUNCT = re.compile(r'[.!?]["”\']?\s*$')
+
 
 def _trim_to_sentence_boundary(text: str, tail: int = 240) -> str:
     """
@@ -25,6 +26,7 @@ def _trim_to_sentence_boundary(text: str, tail: int = 240) -> str:
     cut = max(t.rfind('.'), t.rfind('!'), t.rfind('?'))
     # only trim if the boundary is near the end; else keep as is
     return (t[:cut+1].strip() if cut != -1 and (len(t) - cut) <= tail else t)
+
 
 def generate_openings(
         side: str,
@@ -43,7 +45,7 @@ def generate_openings(
         • 'text'  - the chosen opening argument (str)
         • 'usage' - the OpenAI usage object for cost tracking
     """
-    stance_text = SIDE_STANCE.get(side, "")
+    stance_text = config.SIDE_STANCE.get(side, "")
     prompt = (
     f"You are a debater advocating for {side}. {stance_text}\n\n"
     f"Debate topic: {initial_topic}\n\n"
@@ -112,6 +114,28 @@ def run_debate_match(match_id,
 
     speakers = [(SIDE_A_LABEL, "🔵"), (SIDE_B_LABEL, "🔴")] if side_a_starts \
      else [(SIDE_B_LABEL, "🔴"), (SIDE_A_LABEL, "🔵")]
+    
+    # --- Per-match label→stance assignment (counterbalance) ---
+    # Deterministic & reproducible: odd match_id → Strategy 1 argues P5; even → Strategy 1 argues FCC
+    flip = (match_id % 2 == 1)
+    P5_TEXT  = "Emphasise the US P5-aligned roadmap."
+    FCC_TEXT = "Emphasise the FCC-first roadmap."
+
+    # Record stance mapping on the match (so stats_module can tally by stance)
+    match_data["stance_assignment"] = {
+    SIDE_A_LABEL: ("P5"  if flip else "FCC"),
+    SIDE_B_LABEL: ("FCC" if flip else "P5"),
+}
+
+    # This mapping is what prompts will see this match
+    _label_to_text = {
+        SIDE_A_LABEL: (P5_TEXT if flip else FCC_TEXT),
+        SIDE_B_LABEL: (FCC_TEXT if flip else P5_TEXT),
+}
+
+    # Temporarily override the global so existing prompt code uses the per-match mapping
+    _SIDE_STANCE_ORIG = config.SIDE_STANCE
+    config.SIDE_STANCE = _label_to_text
 
     debater_map = {
     SIDE_A_LABEL: debater_side_a,  # Strategy 1
@@ -163,6 +187,18 @@ def run_debate_match(match_id,
     })
     update_turn_stats(usage_info.prompt_tokens, best_completion_tokens)
 
+    next_speaker, _ = speakers[1]      # the side that didn't open
+    next_stance = config.SIDE_STANCE.get(next_speaker, "")
+    messages.append({
+    "role": "user",
+    "content": (
+        f"You are advocating for {next_speaker}. {next_stance}\n"
+        "Base your response only on the provided context. Do not include salutations.\n\n"
+        f"{next_speaker}, please respond to your opponent."
+    ),
+    })
+
+
     if progress_turn_cb and quiet:
         progress_turn_cb()
 
@@ -177,15 +213,7 @@ def run_debate_match(match_id,
         current_speaker, emoji = speakers[(turn - 1) % 2]
         print(f"\n{emoji} {current_speaker}'s Turn {turn}")
 
-        stance = SIDE_STANCE.get(current_speaker, "")
-        messages.append({
-                    "role": "user",
-                    "content": (
-                    f"You are advocating for {current_speaker}. {stance}\n"
-                    "Base your response only on the provided context. Do not include salutations.\n\n"
-                    f"{current_speaker}, please respond to your opponent."
-                    ),
-                    })
+
         # Get the debater's model and temperature
         d = debater_map[current_speaker]
         model_name  = d["model"]
@@ -219,11 +247,11 @@ def run_debate_match(match_id,
 
         if turn < config.TURNS_PER_MATCH:
             next_speaker, _ = speakers[(turn) % 2]
-            stance = SIDE_STANCE.get(current_speaker, "")
+            next_stance = config.SIDE_STANCE.get(next_speaker, "")
             messages.append({
                 "role": "user",
                 "content": (
-                f"You are advocating for {next_speaker}. {stance}\n"
+                f"You are advocating for {next_speaker}. {next_stance}\n"
                 "Base your response only on the provided context. Do not include salutations.\n\n"
                 f"{next_speaker}, please respond to your opponent."
                 ),
@@ -234,7 +262,7 @@ def run_debate_match(match_id,
     verdict = judge_debate(match_data)
     winner = match_data.get("judge_evaluation", {}).get("winner")
     match_data["winner"] = winner
-    update_match_stats(winner_label=winner, verdict_text=verdict)
+    update_match_stats(winner_label=winner, verdict_text=verdict, stance_assignment=match_data.get("stance_assignment"),)
     match_data["side_labels"] = [SIDE_A_LABEL, SIDE_B_LABEL]
     match_data["side_to_debater_id"] = {
     SIDE_A_LABEL: debater_side_a["id"],   # Strategy 1 
@@ -244,6 +272,11 @@ def run_debate_match(match_id,
     match_data["winner"] = match_data.get("judge_evaluation", {}).get("winner")
 
     match_data["verdict"]     = verdict
+
+
+    # Restore the original global SIDE_STANCE mapping
+    config.SIDE_STANCE = _SIDE_STANCE_ORIG
+
 
     return match_data
 
