@@ -17,6 +17,15 @@ def chat_extra_kwargs(model_name: str, temperature: float) -> dict:
             "temperature": temperature,
         }
 
+# def supports_logprobs(model_name: str) -> bool:
+#     """Return True iff the model family allows the `logprobs` option."""
+#     return not model_name.startswith("o")      # o-series models currently do not support logprobs  
+
 def supports_logprobs(model_name: str) -> bool:
-    """Return True iff the model family allows the `logprobs` option."""
-    return not model_name.startswith("o")      # o-series models currently do not support logprobs  
+    # Explicit map is safest
+    if model_name.startswith("gpt-4o-mini"):
+        return True
+    if model_name.startswith("gpt-5-mini"):
+        return False
+    # Default assumption for other models
+    return False

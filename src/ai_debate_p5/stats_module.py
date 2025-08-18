@@ -12,9 +12,9 @@ global_stats = {
     "total_completion_tokens": 0,
     "total_token_usage": 0,
     "total_judge_calls": 0,
-    # Labels are UI-facing sides (e.g., "Strategy 1", "Strategy 2")
+    # Labels levels (e.g., "Strategy 1", "Strategy 2")
     "wins_by_label": {},
-    # stance-level tallies (decoupled from labels)
+    # stance-level  (decoupled from labels)
     "wins_by_stance": {"P5": 0, "FCC": 0},
     # how often each per-match mapping is used (JSON-friendly string key)
     # e.g., "Strategy 1->P5 | Strategy 2->FCC": 30

@@ -13,8 +13,8 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 # Debate Configuration
-# MODEL = "gpt-4o-mini"
 MODEL = "gpt-4o-mini"
+# MODEL = "gpt-5-mini"
 TEMPERATURE = 0.7
 MAX_TOKENS_PER_RESPONSE = 400
 TURNS_PER_MATCH = 6           # Total turns per match, including the opening turn.
@@ -56,19 +56,19 @@ DEBATERS = [
     {
         "id": "A",
         "boN": 1,
-        "temperature": 0.7,
+        "temperature": 0.3,
         "model": "gpt-4o-mini",
     },
     {
         "id": "B",
-        "boN": 4,
+        "boN": 1,
         "temperature": 0.7,
         "model": "gpt-4o-mini",
     },
     {
         "id": "C",
-        "boN": 8,
-        "temperature": 0.7,
+        "boN": 1,
+        "temperature": 1.0,
         "model": "gpt-4o-mini",
     },
 ]
