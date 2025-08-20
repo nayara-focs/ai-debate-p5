@@ -8,7 +8,7 @@ DEV/
 docs/*.pdf
 docs/*.docx
 docs/*.txt
-!docs/context_p5_plus_fcc.txt
+# !docs/context_p5_plus_fcc.txt
 
 references/
 examples/
