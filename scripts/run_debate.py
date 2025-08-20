@@ -26,6 +26,20 @@ def _parse_args():
                     help="Override config.TURNS_PER_MATCH for this run")
     ap.add_argument("--quiet", action="store_true",
                     help="Suppress per-turn console output")
+    ap.add_argument("--context-order",
+                        choices=["random", "p5_first", "fcc_first", "alternate"],
+                        default="p5_first",  # default keeps current behaviour
+                        help="How to concatenate P5 and FCC context per match."
+    )
+    ap.add_argument("--seed", type=int, default=0,
+                    help="RNG seed used when --context-order=random."
+    )
+    ap.add_argument("--ctx-p5", type=str, default=None,
+                    help="Optional path to P5 context (overrides --ctx if given)."
+    )
+    ap.add_argument("--ctx-fcc", type=str, default=None,
+                    help="Optional path to FCC context (overrides --ctx if given)."
+    )                
     return ap.parse_args()
 
 class _SilentPrint:
@@ -48,24 +62,51 @@ def load_static_context(filename):
         return f.read()
 
 def main():
-    static_context = load_static_context(config.STATIC_CONTEXT_FILE)
+    # --- context selection (backward compatible) ---
+    if args.ctx_p5 and args.ctx_fcc:
+        # Two-file mode: load both and concatenate once (load-time only).
+        p5_text  = load_static_context(args.ctx_p5)
+        fcc_text = load_static_context(args.ctx_fcc)
 
-    # --- context fingerprint for reproducibility ---
+        if args.context_order == "fcc_first":
+            static_context = fcc_text + "\n\n" + p5_text
+            _order_mode = "fcc_first"
+        else:
+            # default keeps historical behaviour (P5 then FCC)
+            static_context = p5_text + "\n\n" + fcc_text
+            _order_mode = "p5_first"
 
-    ctx_path = config.STATIC_CONTEXT_FILE
-    # Make sure we have a string path for JSON stats:
-    try:
-        ctx_path_str = str(ctx_path)  # handles Path objects too
-    except Exception:
-        ctx_path_str = f"{ctx_path}"
+        _ctx_source = {"p5": str(args.ctx_p5), "fcc": str(args.ctx_fcc)}
+        # Fingerprint the exact combined bytes we pass into run_all_matches
+        _combined_bytes = static_context.encode("utf-8")
 
-    with open(ctx_path, "rb") as f:
-        _ctx_bytes = f.read()
+        # Back-compat + richer metadata
+        global_stats["context_path"]       = f"{args.ctx_p5} + {args.ctx_fcc} ({_order_mode})"
+        global_stats["context_paths"]      = _ctx_source
+        global_stats["context_order_mode"] = _order_mode
+        global_stats["context_bytes"]      = len(_combined_bytes)
+        global_stats["context_sha256"]     = hashlib.sha256(_combined_bytes).hexdigest()
 
-    global_stats["context_path"]   = ctx_path_str
-    global_stats["context_bytes"]  = len(_ctx_bytes)
-    global_stats["context_sha256"] = hashlib.sha256(_ctx_bytes).hexdigest()
-# -----------------------------------------------------------
+    else:
+        # Single-file (legacy) mode: unchanged behaviour
+        static_context = load_static_context(config.STATIC_CONTEXT_FILE)
+        ctx_path = config.STATIC_CONTEXT_FILE
+        try:
+            ctx_path_str = str(ctx_path)  # handles Path objects too
+        except Exception:
+            ctx_path_str = f"{ctx_path}"
+
+        with open(ctx_path, "rb") as f:
+            _ctx_bytes = f.read()
+
+        # Preserve existing keys (avoid breaking downstream)
+        global_stats["context_path"]       = ctx_path_str
+        # Also add the richer metadata keys so plots/scripts can rely on them
+        global_stats["context_paths"]      = {"concat": ctx_path_str}
+        global_stats["context_order_mode"] = "concat_only"
+        global_stats["context_bytes"]      = len(_ctx_bytes)
+        global_stats["context_sha256"]     = hashlib.sha256(_ctx_bytes).hexdigest()
+
 
     total_expected = (
         len(config.DEBATERS) * (len(config.DEBATERS) - 1) * 2
@@ -95,7 +136,11 @@ def main():
         config.INITIAL_TOPIC,
         progress_cb=_bump_match,            # counts matches (no printing)
         progress_turn_cb=_dot_turn,         # prints one dot per turn
-        quiet=args.quiet
+        quiet=args.quiet,
+        context_order=args.context_order,
+        seed=args.seed,
+        ctx_p5_text=(p5_text if (args.ctx_p5 and args.ctx_fcc) else None),
+        ctx_fcc_text=(fcc_text if (args.ctx_p5 and args.ctx_fcc) else None),
     )    
     # Compute average tokens per turn and update global stats
     avg_tokens = compute_average_tokens_per_turn()

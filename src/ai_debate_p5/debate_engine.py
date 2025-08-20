@@ -7,7 +7,8 @@ import config
 from config import client, SIDE_A_LABEL, SIDE_B_LABEL 
 from .utils_openai import chat_extra_kwargs, supports_logprobs
 from itertools import product
-
+import random
+from collections import Counter, defaultdict
 
 from .judge_module import judge_debate
 from .stats_module import global_stats, update_turn_stats, update_match_stats
@@ -282,10 +283,51 @@ def run_debate_match(match_id,
 
 
 
-def run_all_matches(static_context, initial_topic, progress_cb=None, progress_turn_cb=None, quiet=False):
+def run_all_matches(
+    static_context,
+    initial_topic,
+    progress_cb=None,
+    progress_turn_cb=None,
+    quiet=False,
+    *,
+    context_order="p5_first",
+    seed=0,
+    ctx_p5_text=None,
+    ctx_fcc_text=None,
+):
+    """
+    Runs the full tournament.
+    New optional args (backward-compatible):
+      - context_order: "random" | "p5_first" | "fcc_first" | "alternate"
+      - seed: RNG seed when using random ordering
+      - ctx_p5_text / ctx_fcc_text: when both provided, we build per-match context
+        by concatenating in the chosen order; otherwise we use static_context unchanged.
+    """
+    rng = random.Random(seed)
     matches_data = []
     debs = config.DEBATERS
     match_id = 1
+
+    def _decide_order(mid: int) -> str:
+        if context_order == "p5_first":
+            return "P5+FCC"
+        if context_order == "fcc_first":
+            return "FCC+P5"
+        if context_order == "alternate":
+            # alternate by match id for determinism across the whole run
+            return "P5+FCC" if (mid % 2 == 1) else "FCC+P5"
+        # random
+        return "P5+FCC" if rng.random() < 0.5 else "FCC+P5"
+
+    def _ctx_for(order_tag: str) -> str:
+        # if split contexts provided, honour order; else fall back to static_context unchanged
+        if ctx_p5_text is not None and ctx_fcc_text is not None:
+            return (
+                (ctx_p5_text + "\n\n" + ctx_fcc_text)
+                if order_tag == "P5+FCC"
+                else (ctx_fcc_text + "\n\n" + ctx_p5_text)
+            )
+        return static_context  # CONCAT_UNSPECIFIED
 
     for deb_pro, deb_con in product(debs, debs):
         if deb_pro["id"] == deb_con["id"]:
@@ -294,16 +336,31 @@ def run_all_matches(static_context, initial_topic, progress_cb=None, progress_tu
         for rep in range(1, config.REPEATS_PER_PAIR + 1):
             # -------- direction 1: {SIDE_A_LABEL} opens ------------
             print("\n===========================")
-            print(f"🔁 Starting Debate Match {match_id} "
-            f"[{deb_pro['id']}-{SIDE_A_LABEL}  vs  {deb_con['id']}-{SIDE_B_LABEL}] "
-            f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
+            print(
+                f"🔁 Starting Debate Match {match_id} "
+                f"[{deb_pro['id']}-{SIDE_A_LABEL}  vs  {deb_con['id']}-{SIDE_B_LABEL}] "
+                f"(repeat {rep}/{config.REPEATS_PER_PAIR})"
+            )
             print("===========================")
 
-            m = run_debate_match(match_id, deb_pro, deb_con,
-                         static_context, initial_topic,
-                         side_a_starts=True,
-                         progress_turn_cb=progress_turn_cb,
-                         quiet=quiet)
+            order_tag = (
+                _decide_order(match_id)
+                if (ctx_p5_text is not None and ctx_fcc_text is not None)
+                else "CONCAT_UNSPECIFIED"
+            )
+            mctx = _ctx_for(order_tag)
+
+            m = run_debate_match(
+                match_id,
+                deb_pro,
+                deb_con,
+                mctx,
+                initial_topic,
+                side_a_starts=True,
+                progress_turn_cb=progress_turn_cb,
+                quiet=quiet,
+            )
+            m["context_order"] = order_tag
             matches_data.append(m)
 
             if progress_cb:
@@ -315,16 +372,31 @@ def run_all_matches(static_context, initial_topic, progress_cb=None, progress_tu
 
             # -------- direction 2: {SIDE_B_LABEL} opens ------------
             print("\n===========================")
-            print(f"🔁 Starting Debate Match {match_id} "
-            f"[{deb_con['id']}-{SIDE_A_LABEL}  vs  {deb_pro['id']}-{SIDE_B_LABEL}] "
-            f"(repeat {rep}/{config.REPEATS_PER_PAIR})")
+            print(
+                f"🔁 Starting Debate Match {match_id} "
+                f"[{deb_con['id']}-{SIDE_A_LABEL}  vs  {deb_pro['id']}-{SIDE_B_LABEL}] "
+                f"(repeat {rep}/{config.REPEATS_PER_PAIR})"
+            )
             print("===========================")
 
-            m = run_debate_match(match_id, deb_con, deb_pro,
-                         static_context, initial_topic,
-                         side_a_starts=False,
-                         progress_turn_cb=progress_turn_cb,
-                         quiet=quiet)
+            order_tag = (
+                _decide_order(match_id)
+                if (ctx_p5_text is not None and ctx_fcc_text is not None)
+                else "CONCAT_UNSPECIFIED"
+            )
+            mctx = _ctx_for(order_tag)
+
+            m = run_debate_match(
+                match_id,
+                deb_con,
+                deb_pro,
+                mctx,
+                initial_topic,
+                side_a_starts=False,
+                progress_turn_cb=progress_turn_cb,
+                quiet=quiet,
+            )
+            m["context_order"] = order_tag
             matches_data.append(m)
 
             if progress_cb:
@@ -334,5 +406,28 @@ def run_all_matches(static_context, initial_topic, progress_cb=None, progress_tu
 
             match_id += 1
 
-    return matches_data
+    # ------- Post-hoc aggregation: add-only stats (no changes to stats_module) ------
 
+    matches_by_context_order = Counter()
+    wins_by_context_order = Counter()  # kept for back-compat; equals matches today (1 winner/match)
+    wins_by_stance_given_order = defaultdict(Counter)
+
+    for m in matches_data:
+        order = m.get("context_order", "CONCAT_UNSPECIFIED")
+        matches_by_context_order[order] += 1
+        winner = m.get("winner")
+        if winner:
+            wins_by_context_order[order] += 1
+            stance_map = m.get("stance_assignment", {})
+            if isinstance(stance_map, dict) and winner in stance_map:
+                winner_stance = stance_map[winner]
+                wins_by_stance_given_order[order][winner_stance] += 1
+
+# Save into global_stats using plain dicts
+    global_stats["matches_by_context_order"] = dict(matches_by_context_order)
+    global_stats["wins_by_context_order"] = dict(wins_by_context_order)  # deprecated; equals matches today
+    global_stats["wins_by_stance_given_order"] = {
+        k: dict(v) for k, v in wins_by_stance_given_order.items()
+}
+
+    return matches_data
