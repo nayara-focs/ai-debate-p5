@@ -12,6 +12,7 @@ from collections import Counter, defaultdict
 
 from .judge_module import judge_debate
 from .stats_module import global_stats, update_turn_stats, update_match_stats
+from typing import Optional, Dict
 
 _END_PUNCT = re.compile(r'[.!?]["”\']?\s*$')
 
@@ -101,7 +102,8 @@ def run_debate_match(match_id,
                      initial_topic,
                      side_a_starts: bool,
                      progress_turn_cb=None,
-                     quiet=False):
+                     quiet=False,
+                     label_to_stance: Optional[Dict[str, str]] = None):
     """
     Runs one complete debate match.
     Returns the match data dictionary.
@@ -116,23 +118,26 @@ def run_debate_match(match_id,
     speakers = [(SIDE_A_LABEL, "🔵"), (SIDE_B_LABEL, "🔴")] if side_a_starts \
      else [(SIDE_B_LABEL, "🔴"), (SIDE_A_LABEL, "🔵")]
     
-    # --- Per-match label→stance assignment (counterbalance) ---
-    # Deterministic & reproducible: odd match_id → Strategy 1 argues P5; even → Strategy 1 argues FCC
-    flip = (match_id % 2 == 1)
+    # --- Per-match label→stance assignment (now optionally provided) ---
     P5_TEXT  = "Emphasise the US P5-aligned roadmap."
     FCC_TEXT = "Emphasise the FCC-first roadmap."
 
-    # Record stance mapping on the match (so stats_module can tally by stance)
-    match_data["stance_assignment"] = {
-    SIDE_A_LABEL: ("P5"  if flip else "FCC"),
-    SIDE_B_LABEL: ("FCC" if flip else "P5"),
-}
+    if label_to_stance is None:
+        # Legacy fallback: keep old parity behaviour for back-compat
+        flip = (match_id % 2 == 1)
+        label_to_stance = {
+            SIDE_A_LABEL: ("P5"  if flip else "FCC"),
+            SIDE_B_LABEL: ("FCC" if flip else "P5"),
+        }
 
-    # This mapping is what prompts will see this match
+    # Record stance mapping on the match (so stats tally by stance stays correct)
+    match_data["stance_assignment"] = dict(label_to_stance)
+
+    # Map stance strings to the per-label instruction text used in prompts
     _label_to_text = {
-        SIDE_A_LABEL: (P5_TEXT if flip else FCC_TEXT),
-        SIDE_B_LABEL: (FCC_TEXT if flip else P5_TEXT),
-}
+        SIDE_A_LABEL: (P5_TEXT if label_to_stance[SIDE_A_LABEL] == "P5" else FCC_TEXT),
+        SIDE_B_LABEL: (P5_TEXT if label_to_stance[SIDE_B_LABEL] == "P5" else FCC_TEXT),
+    }
 
     # Temporarily override the global so existing prompt code uses the per-match mapping
     _SIDE_STANCE_ORIG = config.SIDE_STANCE
@@ -334,6 +339,13 @@ def run_all_matches(
             continue  # skip self-play
 
         for rep in range(1, config.REPEATS_PER_PAIR + 1):
+            # --- Stance mapping is constant across the two directions in this pair ---
+            # Minimal, deterministic alternation by repeat: odd rep → P5 to SIDE_A; even rep → P5 to SIDE_B
+            p5_is_side_a = (rep % 2 == 1)
+            pair_label_to_stance = {
+                SIDE_A_LABEL: ("P5" if p5_is_side_a else "FCC"),
+                SIDE_B_LABEL: ("FCC" if p5_is_side_a else "P5"),
+            }
             # -------- direction 1: {SIDE_A_LABEL} opens ------------
             print("\n===========================")
             print(
@@ -359,6 +371,7 @@ def run_all_matches(
                 side_a_starts=True,
                 progress_turn_cb=progress_turn_cb,
                 quiet=quiet,
+                label_to_stance=pair_label_to_stance
             )
             m["context_order"] = order_tag
             matches_data.append(m)
@@ -395,6 +408,7 @@ def run_all_matches(
                 side_a_starts=False,
                 progress_turn_cb=progress_turn_cb,
                 quiet=quiet,
+                label_to_stance=pair_label_to_stance
             )
             m["context_order"] = order_tag
             matches_data.append(m)
