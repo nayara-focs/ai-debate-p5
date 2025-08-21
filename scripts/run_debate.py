@@ -99,14 +99,16 @@ def main():
         with open(ctx_path, "rb") as f:
             _ctx_bytes = f.read()
 
-        # Preserve existing keys (avoid breaking downstream)
-        global_stats["context_path"]       = ctx_path_str
-        # Also add the richer metadata keys so plots/scripts can rely on them
-        global_stats["context_paths"]      = {"concat": ctx_path_str}
-        global_stats["context_order_mode"] = "concat_only"
-        global_stats["context_bytes"]      = len(_ctx_bytes)
-        global_stats["context_sha256"]     = hashlib.sha256(_ctx_bytes).hexdigest()
-
+        # Human-readable summary, without implying a fixed order
+        global_stats["context_path"]       = f"{args.ctx_p5} + {args.ctx_fcc}"
+        # Machine-readable sources
+        global_stats["context_paths"]      = _ctx_source
+        # Reflect the actual run mode you requested (random / p5_first / fcc_first / alternate)
+        global_stats["context_order_mode"] = args.context_order
+        global_stats["context_order_seed"] = args.seed
+        # Fingerprint the exact combined bytes for reproducibility (order here is load-time only)
+        global_stats["context_bytes"]      = len(_combined_bytes)
+        global_stats["context_sha256"]     = hashlib.sha256(_combined_bytes).hexdigest()
 
     total_expected = (
         len(config.DEBATERS) * (len(config.DEBATERS) - 1) * 2
