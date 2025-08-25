@@ -9,6 +9,7 @@ config.py
 docs/*.pdf
 docs/*.docx
 docs/*.txt
+docs/figures/
 # !docs/context_p5_plus_fcc.txt
 
 references/
