@@ -10,6 +10,7 @@ docs/*.pdf
 docs/*.docx
 docs/*.txt
 docs/figure/
+docs/submission/
 # !docs/context_p5_plus_fcc.txt
 
 references/
