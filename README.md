@@ -1,7 +1,7 @@
 # p5‑ai‑debate 🤖⚛️  
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 
-**Prototype – AI Debate for particle‑physics strategy (P5 2023)**
+**Prototype – AI Debate for particle‑physics strategy**
 
 This project explores domain-specific decision-making with automated judging and diverse opening arguments.
 
@@ -77,7 +77,7 @@ ai‑debate‑p5/              – GitHub root
 │
 ├─ .gitignore
 ├─ requirements.txt
-└─ README.md               – you are here
+└─ README.md               
 ```
 
 ---
