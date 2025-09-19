@@ -1,4 +1,4 @@
-# p5-ai-debate 🤖⚛️  
+# AI Debate 🤖⚛️  
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 
 **Prototype – AI Debate for particle-physics strategy (P5 2023 + FCC 2025, neutral multi-corpus)**
