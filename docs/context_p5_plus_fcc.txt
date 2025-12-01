@@ -1,0 +1,536 @@
+===== [FCC 2025 CONTEXT begins] =====
+
+Future Circular Collider (FCC) Feasibility Study — Summary
+
+EXECUTIVE SUMMARY
+The Future Circular Collider (FCC) is a staged collider programme designed to extend particle physics beyond the LHC era by combining a precision electron–positron collider (FCC-ee) and, subsequently, an energy-frontier proton–proton collider (FCC-hh) in a common circular tunnel of about ninety-one kilometres near CERN. The 2025 feasibility study assesses scientific targets, experimental requirements, accelerator designs, civil engineering and siting, implementation scenarios, environmental and sustainability considerations, and socio-economic impact. The principal outcome is that the overall concept is technically feasible: FCC-ee can deliver unprecedented luminosity at several centre-of-mass energies (Z pole, WW threshold, Higgs factory, and top threshold) with four experiments, enabling statistics that surpass previous facilities by orders of magnitude; the same tunnel can later host FCC-hh at O(100 TeV) centre-of-mass energy, extending discovery reach and enabling ultra-rare Higgs and new-physics studies. The staged approach reduces risk, spreads cost, and allows targeted technology R&D (especially magnets for FCC-hh) to mature during the FCC-ee running period. The feasibility report provides a baseline implementation scenario and emphasises that realisation depends on strategic approvals and international partnerships.
+
+INTRODUCTION AND SCOPE
+1.1 Objective
+The FCC programme aims to (i) deliver an intensity-frontier factory for precision tests of the Standard Model (SM) and indirect new-physics sensitivity (FCC-ee), then (ii) push the direct discovery frontier to multi-tens-of-TeV scales (FCC-hh), within a single, reusable infrastructure. The feasibility study evaluates whether the required technologies, infrastructure, and implementation pathway are practicable, and whether the scientific case is compelling enough to guide European and global strategy.
+1.2 Overall layout and staging
+A new, approximately 91 km-circumference ring provides four experimental interaction regions and four technical straight sections. Stage 1 is FCC-ee, an e⁺e⁻ double-ring collider with a full-energy top-up booster in the same tunnel and four experiments operating concurrently. Stage 2 is FCC-hh, a pp collider using high-field superconducting dipoles installed in the same tunnel after reconfiguration. The two stages are complementary: FCC-ee delivers per-mille-level measurements and indirect sensitivity; FCC-hh probes directly at the highest energies and produces enormous Higgs and heavy final-state samples. A staged timeline is envisaged, with an FCC-ee programme of order fifteen years followed by reconfiguration for FCC-hh; exact dates are policy-dependent and not part of the feasibility commitment.
+1.3 Report structure (Volumes 1–3)
+Volume 1: physics case, running scenarios and yields, detector concepts and calibration strategies, theory and computing requirements. Volume 2: accelerator concepts and technologies for FCC-ee and FCC-hh; injector chains; machine protection, safety and technical infrastructures. Volume 3: civil engineering and siting, implementation scenario and authorisation pathway, environmental and sustainability aspects, and socio-economic analysis.
+
+SCIENCE TARGETS AND MEASUREMENT PROGRAMME (VOLUME 1)
+2.1 Precision pillars
+FCC-ee targets four centre-of-mass regimes: Z pole (~91 GeV): statistics-dominated era for electroweak and flavour observables (asymmetries, widths, rare decays), with continuous, absolute collision-energy calibration. WW threshold (~158 GeV): precision W mass, width and couplings with high redundancy. Higgs factory (~240 GeV): model-independent Higgs couplings via recoil method; rare/forbidden decays; invisible and exotic branching-ratio limits. Top threshold (~345–365 GeV): threshold scans for mₜ in well-defined schemes; electroweak top couplings; sensitive new-physics tests through line-shape and differential observables. The expected integrated data set across fifteen years includes of order 6×10¹² Z bosons, ~2×10⁸ WW events, ~2.7–3×10⁶ Higgs bosons, and ~2×10⁶ t\bar{t} pairs.
+2.2 Higgs sector
+Model-independent determinations of σ(e⁺e⁻→ZH) and absolute branching fractions, including H→bb, cc, gg, WW*, ZZ*, ττ, μμ, and limits on invisible/exotic decays, form the core of the FCC-ee Higgs programme. Combination with off-shell/rare channels and threshold information constrains the total width and effective couplings. Results from FCC-ee define targets and systematics control for FCC-hh, where the Higgs self-coupling and ultra-rare decays become accessible with very large statistics.
+2.3 Electroweak and flavour
+At the Z pole and WW threshold, the programme yields per-mille precision on asymmetries and widths, improved effective weak mixing angle, and a high-precision W mass, with multiple, redundant methods. The Z sample supports an extensive flavour programme (including heavy-flavour tagging and rare decays) and precision QCD studies with minimal hadronic uncertainties.
+2.4 Top-quark physics
+Threshold scans determine mₜ in short-distance schemes with theory-limited precision, improve αs and Γₜ constraints, and test top electroweak couplings. Associated production at higher energies and differential distributions expand sensitivity to anomalous couplings and contact interactions.
+2.5 Direct and indirect new-physics reach
+Indirect constraints arise from global SMEFT fits, electroweak precision tests, and rare-process limits; direct searches target feebly interacting particles and exotic Higgs decays at FCC-ee. FCC-hh extends direct reach for new mediators and composite scales into the multi-tens-of-TeV domain while enabling precision Higgs self-coupling and extremely rare SM/BSM channels with O(10¹⁰) Higgs produced over the run.
+
+FCC-EE RUN PLAN, LUMINOSITIES, AND YIELDS (VOLUME 1)
+3.1 Operating points and sequencing
+FCC-ee operates at Z, WW, ~240 GeV (ZH) and near the t\bar{t} threshold, with four experiments instrumented for simultaneous data taking. The baseline sequence is flexible; performance assumptions include high uptime with continuous top-up and regular resonant-depolarisation (RDP) energy calibrations at Z/WW energies.
+3.2 Target yields and integrated luminosity
+Over ~15 years, nominal yields are: ≥6×10¹² Z decays (multi-experiment combined), ~2×10⁸ WW events, ~2.7–3×10⁶ Higgs bosons, ~2×10⁶ top-pair events. These numbers set the precision floor for electroweak, Higgs and top programmes and enable powerful, model-agnostic new-physics fits.
+3.3 Systematics control (overview)
+Absolute and frequent centre-of-mass energy calibration via RDP reduces key external systematics. High-granularity tracking/calorimetry with excellent timing, redundant luminosity monitors, and comprehensive alignment/field mapping underpin systematic error budgets. Theory inputs (higher-order EW/QCD corrections, improved PDFs, threshold resummation) must match experimental precision.
+3.4 Calibration and alignment cycles
+In-fill calibration (minutes–hours): continuous monitoring with pilot bunches for polarimetry/RDP; online luminosity and conditions monitors; rolling detector alignment and scale updates using abundant prompt tracks and resonances. Interleaved short blocks (hours–days): scheduled RDP at operating energy (Z/WW); targeted detector calibrations for lepton/photon/jet scales; hadronic response with Z→qq and control samples. Dedicated calibration runs (days–weeks): occasional Z-pole returns during higher-energy years to re-anchor lepton/photon/jet scales and alignments on very high-statistics samples; subsystem scans and luminosity revalidation.
+3.5 Run-plan flexibility and contingencies
+If specific systematics (energy-scale drifts, luminosity normalisation, object-ID efficiencies) become limiting, the sequence and cadence can be adjusted: insert additional Z-pole mini-blocks during 240/365 GeV years; redistribute WW scan points; extend the 365 GeV period for top/differential Higgs if theory systematics are reduced.
+3.6 Data-quality and trigger-like selections
+Experiments maintain robust data-quality vetoes and simple bandwidth protections: stable-beams and detector-ready flags; luminosity/background guardrails with auto-pause; prescaled calibration streams (Bhabha, μμ, γγ, radiative returns) to ensure uniform calibration statistics.
+3.7 Putting it together
+Frequent absolute √s anchoring (Z, WW), continuous object-scale monitoring at 240/365 GeV, and analysis-level cross-checks (alternate fit models, orthogonal selections, scan symmetries) ensure that very large statistics translate into genuine physics reach with auditable systematics.
+
+DETECTOR CONCEPTS AND CALIBRATION STRATEGY (VOLUME 1)
+4.1 Global requirements
+The Z/WW/H/top programme demands ultra-precise momentum and energy measurements; excellent flavour tagging; low-mass trackers; fine-grained calorimetry; comprehensive timing for background rejection and vertexing; and robust alignment/calibration procedures. Four general-purpose experiments are foreseen, with complementary optimisation emphases.
+4.2 Continuous energy calibration
+Dedicated pilot bunches, polarised and measured by RDP without interrupting physics, provide absolute energy calibration at Z and WW points. This capability is central to electroweak goals and is designed into optics, RF and instrumentation.
+4.3 Software and computing
+Exascale-class computing, modular reconstruction and simulation stacks, fast-simulation surrogates where appropriate, and advanced ML for trigger/reconstruction/systematics control. Long-term data preservation and re-analysis are assumed from the outset.
+
+FCC-HH: ENERGY-FRONTIER COMPLEMENT (VOLUME 2)
+5.1 Scope
+The hadron stage reuses the FCC tunnel with new, high-field dipoles (baseline ~14 T, Nb₃Sn at 1.9 K, with upgrade paths), strong collimation and machine protection, and four interaction regions. With O(20–30 ab⁻¹) integrated luminosity, FCC-hh becomes a discovery machine for new particles and interactions in the multi-tens-of-TeV range and a precision Higgs factory for ultra-rare channels and the self-coupling.
+5.2 Synergy with FCC-ee
+Precision anomalies or patterns from FCC-ee can be tested directly at FCC-hh; conversely, FCC-hh rare-channel measurements lift degeneracies in global fits. Reusing civil and technical infrastructure maximises the value of the initial investment.
+
+ACCELERATOR CONCEPTS AND TECHNICAL READINESS (VOLUME 2)
+6.1 FCC-ee collider
+Key features: double-ring layout (separate e⁺/e⁻ pipes), full-energy top-up booster in the same tunnel, SRF systems, and crab-waist collisions. Synchrotron-radiation power is managed to fixed budgets across operating points; optics and RF configurations adapt across Z→WW→ZH→top modes while preserving high luminosity and precise calibration.
+6.2 FCC-hh collider
+Baseline energy reach is determined by ring circumference and dipole field; magnet development (Nb₃Sn and potential high-temperature superconductors) is a central, long-lead R&D theme. Synchrotron radiation and site power at 100 TeV-class energies drive beam-screen, cryogenics, and efficiency choices. Injector options and reuse of FCC-ee infrastructure are part of the integration strategy.
+
+CIVIL ENGINEERING, IMPLEMENTATION, AND SUSTAINABILITY (VOLUME 3)
+7.1 Siting and geology
+An iterative layout optimisation converges on a ~91 km ring at an average depth of order 200 m, with eight surface sites across France and Switzerland, balancing physics performance, geological constraints, territorial compatibility, and connectivity to existing CERN sites.
+7.2 Implementation scenario
+A reference scenario foresees decision/authorisation processes followed by preparatory works and staged construction, aiming at first FCC-ee physics after commissioning and a ~15-year FCC-ee programme, then reconfiguration to FCC-hh. The feasibility report informs strategy; it is not a construction commitment.
+7.3 Environment and sustainability
+The project follows an “avoid–reduce–compensate” approach for land use, construction emissions, and energy. Design choices target low-carbon materials/logistics, decarbonised electricity, and waste-heat recovery into regional networks. Environmental field investigations inform constraints and mitigation.
+7.4 Socio-economic impact
+A comprehensive assessment indicates a positive benefit–cost ratio for the FCC-ee stage under conservative assumptions, significant employment and regional value during construction and operation, and long-term technology spillovers (accelerators, superconductivity, computing).
+
+FCC-EE DETECTOR CONCEPTS AND PERFORMANCE TARGETS (VOLUME 1)
+8.1 Design envelope and integration with machine
+Four collision regions share common machine parameters: small β* optics, modest crossing angle with crab-waist compensation, low backgrounds, and absolute energy-calibration instrumentation. Standardised interfaces simplify construction and maintenance over a multi-decade programme.
+8.2 Tracking and vertexing
+Ultra-low-mass silicon vertex trackers provide impact-parameter resolutions for b- and c-tagging. The central tracker targets per-mille momentum resolution with precise alignment via resonances. Material budgets are minimised to protect ECAL resolution and reduce conversions.
+8.3 Calorimetry and particle identification
+Highly granular ECAL and HCAL provide fine spatial/energy resolution for photons/electrons and jets. Options include dual-readout and particle-flow-optimised designs; baseline targets enable separation of W/Z/H hadronic decays at 240 GeV and robust rare-channel reconstruction. Muon systems add standalone ID with precise timing; PID (dE/dx, time-of-flight, RICH) supports flavour physics.
+8.4 Timing and pileup control
+Per-track/cluster timing at few-tens of picoseconds suppresses out-of-time backgrounds, enables ToF PID, and improves vertex-time discrimination. Timing layers and precision calorimeter timing are baselined with stable RF synchronisation.
+8.5 Luminosity and forward instrumentation
+Precision luminosity from small-angle Bhabha detectors with exquisite angular resolution and acceptance control, complemented by redundant monitors. Forward calorimetry is radiation-hard and engineered to minimise backscattering; MDI includes masks and absorbers to control residual rates.
+8.6 Triggers, DAQ, and online computing
+Sustained high throughput with flexible selections. Two-tiered approach (fast hardware primitives plus software triggers) with real-time reconstruction and ML-based selection. DAQ dimensioned for multi-experiment operation with failover and fault isolation.
+8.7 Calibration and alignment programme
+RDP provides absolute beam-energy calibration; detector alignment uses cosmics, resonant decays, survey data, and laser systems. Continuous calibration periods are interleaved with physics using the double-ring and dedicated pilot bunches.
+
+FCC-EE SYSTEMATICS CONTROL AND THEORY INPUTS (VOLUME 1)
+9.1 Electroweak and Higgs precision
+Target uncertainties for mZ, ΓZ, sin²θeff, mW, and key Higgs couplings require tight interplay between detector systematics and theory (higher-order QED/EW, ISR/FSR resummation, hadronic vacuum polarisation). Dedicated runs and auxiliary measurements pin down nuisance parameters; theory deliverables are aligned with milestones.
+9.2 Flavour and rare processes
+Heavy-flavour observables profit from excellent vertexing and PID; rare-decay searches use control-region-driven backgrounds and blind analyses. LLP searches exploit timing and displaced-vertex capabilities with minimal model bias. Inclusive QCD variables at the Z pole constrain αs and event-shape theory at high precision.
+9.3 Global interpretations
+SMEFT/global-fit tooling enables consistent combinations across Z, W, Higgs, and top datasets with correlated uncertainties. Public reinterpretation frameworks and long-term preservation ensure durability as theory advances.
+
+FCC-EE ACCELERATOR DETAILS (VOLUME 2)
+10.1 Lattice, optics, and crab-waist scheme
+Low-β* interaction regions with crab-waist sextupoles mitigate beam–beam effects while preserving dynamic aperture. Chromaticity correction and nonlinear optics are optimised per energy point; emittance control is critical for design luminosities.
+10.2 RF systems and top-up booster
+SRF provides voltage for energy/current across modes. A full-energy booster injects at top energy to maintain constant luminosity despite short lifetimes. RF power systems are designed for efficiency and reliability with modular options and energy-recovery considerations.
+10.3 Synchrotron-radiation management
+Beam-pipe design, photon stops, and vacuum systems handle radiation loads and protect detector regions. Thermal stability of arcs and IRs is maintained; cryomodule design minimises heat leaks and maximises wall-plug efficiency.
+10.4 Availability and machine protection
+Protection strategies reflect stored energy in beams and RF/cryogenics; collimation and abort systems have generous margins. Preventive maintenance, modular spares, and parallelisable interventions support high annual integrated luminosity.
+
+FCC-HH TECHNICAL PROGRAMME (VOLUME 2)
+11.1 High-field magnet R&D
+Baseline Nb₃Sn dipoles at ~14 T and 1.9 K define initial energy reach; R&D toward higher fields and/or higher-temperature operation (HTS) runs throughout FCC-ee operations. Industrialisation pathways, QA/QC for thousands of magnets, and long-coil testing are built into the timeline.
+11.2 Cryogenics, vacuum, and beam screens
+Proton synchrotron radiation at tens of TeV necessitates advanced beam screens, photon absorbers, and cryo-refrigeration capable of extracting megawatts of SR power. Vacuum stability, electron-cloud control, and impedance management are addressed by coatings, conditioning, and beam cycling.
+11.3 Collimation and machine protection
+Stored beam energy requires multi-stage collimation with robust absorbers and ultra-fast abort systems. Failure scenarios set interlock thresholds and safe-operation envelopes; extensive commissioning validates protection logic before physics running.
+11.4 Injectors and filling schemes
+Options include new superconducting pre-boosters and upgrades of existing rings. Brightness preservation and emittance control across injectors are essential; filling schemes are optimised for lifetime, background control, and detector readiness.
+
+CIVIL, IMPLEMENTATION, AND SUSTAINABILITY DETAILS (VOLUME 3)
+12.1 Tunnel and caverns
+Baseline alignment avoids challenging geology, balances depth versus shaft complexity, and places four large experimental caverns with access galleries and surface buildings sized for assembly and upgrades. TBM excavation is assumed; muck-handling and logistics plans minimise community impact.
+12.2 Surface sites and territorial footprint
+Eight surface sites host shafts, cooling plants, cryogenics, electrical substations, and experimental halls. Iterative layout reduced total land take by co-locating services and optimising shaft positions. Traffic, noise, and visual-impact mitigations are integrated.
+12.3 Environmental management
+Construction-phase emissions are quantified; low-carbon materials, optimised logistics (rail where feasible), and compensation measures are planned. Operational power aligns with decarbonised grids; heat-recovery to district networks is pursued with local authorities. Water intake/discharge remain within regional thresholds.
+12.4 Authorisation and stakeholder engagement
+A structured pathway covers environmental impact assessments, cross-border coordination with host states, and public consultations. Documentation prepared during feasibility feeds authorisation dossiers; transparent engagement continues through construction and operation.
+12.5 Socio-economic assessment
+Macroeconomic modelling indicates a positive benefit–cost ratio for FCC-ee under conservative assumptions, significant employment during construction and steady high-skill jobs during operations, and long-term spillovers (accelerators, superconductivity, computing).
+
+IMPLEMENTATION SCENARIO AND SCHEDULE LOGIC
+13.1 Decision gates and reviews
+External scientific/technical reviews and Council processes precede any construction commitment. A decision window in the late 2020s allows civil works in the 2030s, machine/detector installation and commissioning in the mid-2040s, and an FCC-ee programme of ~15 years, followed by FCC-hh in the subsequent decades.
+13.2 Staging rationale
+Staging reduces aggregate risk and cost by delivering early high-impact physics, reusing infrastructure, allowing long-lead R&D to mature, and distributing funding over multiple planning cycles.
+
+RISK REGISTER AND MITIGATIONS
+14.1 Technical risks
+For FCC-ee: achieving target luminosities across energies, long-term RF/cryogenics reliability, and calibration throughput. For FCC-hh: large-scale magnet industrialisation, SR power extraction, and machine protection at unprecedented stored energies. Mitigations include phased prototyping, system tests, and early industrial engagement.
+14.2 Programmatic risks
+Authorisation timelines, budget phasing, and supply-chain constraints are addressed by flexible staging, international partnerships, and standardised interfaces to broaden vendor pools. Sustainability targets are treated as design constraints.
+
+COMPUTING, SOFTWARE, AND DATA MANAGEMENT
+15.1 Scale and architecture
+Multi-experiment, multi-energy running over decades implies exabyte-scale data volumes. A federated computing model blends data centres, HPC, and cloud resources; workflow orchestration and data-lake architectures support reproducibility and long-term curation.
+15.2 Simulation and theory–computation coupling
+Fast-simulation surrogates and ML-based emulators supplement full GEANT-based simulation to meet throughput goals. Theory grids for higher-order corrections and PDFs at 100 TeV are versioned and archived with analyses; reinterpretation pipelines are maintained for future updates.
+15.3 Open science and preservation
+Common analysis frameworks, well-documented data tiers, and permissive re-use policies maximise scientific return and community access over the project lifetime and beyond.
+
+PROGRAMME OUTLOOK
+The feasibility study establishes that the FCC programme—precision-first with FCC-ee, energy-frontier follow-on with FCC-hh—has a technically credible path, compelling physics case, sustainable siting and implementation options, and socio-economic justification. Next steps include external review, strategy decisions, and focused R&D and prototyping to retire remaining risks on the way to construction readiness.
+
+PROGRAMME TIMELINE AND STAGING
+Overall staging. External reviews and Council decisions precede any commitment. If approved, civil works are concentrated in the 2030s, FCC-ee commissioning targets the mid-2040s, followed by roughly fifteen years of precision running across four energy points (Z pole, WW threshold, ~240 GeV Higgs factory, and the top threshold). After FCC-ee, the facility is reconfigured for FCC-hh with first pp collisions envisaged in the 2070s and a 20–25 year programme thereafter.
+Run segmentation. Within the FCC-ee period the plan interleaves: a substantial Z-pole phase for commissioning and precision electroweak/flavour; a WW-threshold block for mW and related observables; a multi-year ~240 GeV block for Higgs recoil precision; and a top-threshold block for mass and line-shape scans. Short Z-pole mini-blocks can be inserted into higher-energy years to re-anchor scales without degrading output.
+Interaction points. Up to four experiments share FCC-ee luminosity concurrently. The hadron stage preserves four interaction regions, with detector technologies upgraded for radiation, pileup and triggering at tens-of-TeV energies.
+Decision gates and contingencies. The plan includes decision points aligned with scientific, technical, environmental and financial reviews. Sequencing or durations can be adjusted if particular systematics become limiting (e.g., increased Z-pole anchoring, redistributed WW scan points, or extended top-threshold data).
+
+INFRASTRUCTURE LAYOUT
+Tunnel alignment and depth. The baseline is an ~91 km tunnel at an average depth of order 200 m under France and Switzerland, with long arcs and straights hosting RF, injection/extraction and services.
+Surface sites and shafts. Eight surface sites host shafts, cryogenics, cooling/ventilation, electrical substations, and experimental halls. Co-location of shared services reduces land take and simplifies logistics.
+Experiment caverns. Four large underground halls anchor the interaction regions. Layouts prioritise transport clearances for detector modules, crane coverage, shielding and safe access while maintaining optics constraints (β*, crossing angle, crab-waist sextupoles) at the machine–detector interface.
+
+POWER, COOLING, AND HEAT RECOVERY
+Operational envelopes. FCC-ee site power depends on energy mode and is dominated by RF and cryogenics; efficiency improvements (modern SRF, RF power sources, cryoplant optimisation) and careful load management keep annual energy demand comparable to present CERN usage. FCC-hh requires higher site power; magnet technology choices (field strength and operating temperature) trade collision energy against refrigeration load.
+Heat recovery. Waste heat from cooling loops and cryogenics is planned for redistribution to local district networks in partnership with host communities.
+Water management. Closed-loop cooling and discharge controls respect local hydrological constraints; monitoring and conditioning infrastructure keep thermal and chemical parameters within regulatory envelopes.
+
+ENVIRONMENTAL FOOTPRINT
+Land take and avoidance. Iterative siting reduced total surface footprint to a few dozen hectares by consolidating services, optimising shaft positions and avoiding sensitive areas where possible.
+Excavated material reuse. TBM excavation yields large spoil volumes; valorisation pathways (construction materials, landscape integration) minimise disposal, supported by pilot industrial studies.
+Carbon and materials. Construction-phase emissions are mitigated via low-carbon concrete/steel choices, optimised logistics (including rail haulage where feasible), and compensation measures. During operations, decarbonised electricity sourcing and efficiency measures reduce the footprint.
+Biodiversity, traffic and noise. Field studies inform targeted mitigation (seasonal scheduling, barriers, habitat restoration). Traffic and noise management plans are integrated into construction methodology and site layouts.
+
+COST ENVELOPES AND CASHFLOW
+Staged investment. The feasibility baseline quotes an order-of-magnitude capital envelope for FCC-ee (tunnel, accelerator and four detectors) spread over roughly a dozen years. FCC-hh investment follows later, after technology maturation and fresh strategy decisions. The feasibility study is input to strategy, not a funding commitment.
+Cashflow smoothing. Civil-works phasing, framework agreements and early industrial engagement smooth year-to-year spending and de-risk schedules. Reuse of infrastructure between stages reduces lifecycle cost.
+
+ANNEX HIGHLIGHTS (SELECTED)
+High-field magnet roadmap. Long-lead R&D pursues Nb₃Sn dipoles at ~14 T (1.9 K) and explores HTS options for higher field and/or higher-temperature operation. Industrialisation covers conductor production, coil winding/impregnation, long-magnet testing and QA/QC for thousands of units.
+Civil-engineering risk register. Geological uncertainties, groundwater management, TBM logistics and shaft construction risks are tracked with mitigations: additional site investigations, adaptable alignments, contingency shafts and modular muck-handling.
+Radiation and machine protection. Shielding, access controls, collimation hierarchies, interlock architectures, abort systems and commissioning sequences are scaled from LHC experience and validated before high-intensity operation.
+Socio-economic methodology. Direct/indirect effects (employment, supply chains, skills), long-term technology spillovers (accelerators, superconductivity, computing) and educational benefits yield a positive benefit–cost ratio for the precision stage under conservative assumptions.
+
+GLOSSARY
+FCC-ee: electron–positron collider (first stage).
+FCC-hh: proton–proton collider (second stage).
+RDP: resonant depolarisation; absolute beam-energy calibration using polarised pilot bunches.
+β*: optical beta function at the interaction point; small β* increases luminosity.
+Crab-waist: collision scheme using sextupoles to mitigate beam–beam effects at a crossing angle.
+Top-up: continuous injection at full energy to maintain beam current and luminosity.
+Integrated luminosity: time-integrated collision rate determining event yields.
+Land take: total surface area required for shafts, halls and infrastructure.
+Staging: sequential realisation (FCC-ee then FCC-hh) sharing infrastructure and spreading risk/cost.
+
+===== [P5 2023 CONTEXT begins] =====
+
+Particle Physics Project Prioritization Panel (P5) 2023 — Summary
+
+EXECUTIVE SUMMARY
+The 2023 P5 report sets a balanced, decade-scale strategy for US particle physics, framed by a
+20‑year global vision and two budget scenarios. Its program design emphasizes (i) high discovery
+potential across three themes—Decipher the Quantum Realm, Illuminate the Hidden Universe, and
+Explore New Paradigms; (ii) a portfolio spanning small/mid/large projects so that science is delivered
+continuously; (iii) strong coordination with international partners for shared facilities; and (iv) enabling
+investments in workforce, R&D, software/computing, and sustainability. The plan (a) completes and
+harvests ongoing experiments (HL‑LHC, DUNE/LBNF first phase, Rubin/LSST, DESI, SBN, Muon g‑2,
+Mu2e, Belle II, LHCb, direct dark‑matter experiments), (b) constructs a set of priority facilities—CMB‑S4;
+a re‑envisioned second phase of DUNE with ACE‑MIRT beam power and enhanced near/far detectors;
+an offshore e⁺e⁻ Higgs factory with substantial US participation; a Generation‑3 (G3) direct‑detection
+dark‑matter experiment reaching the “neutrino fog”; and IceCube‑Gen2—and (c) launches enabling R&D
+toward a future ~10 TeV parton‑center‑of‑momentum (pCM) collider, with a muon‑collider demonstrator
+as a key milestone. The plan also establishes a nimble small‑project line (ASTAE) and continues mid‑scale
+opportunities through NSF programs. Workforce development, open science, and energy‑efficient
+operations are treated as program requirements, not afterthoughts.
+
+1. INTRODUCTION AND PROCESS
+A community‑driven planning process grounded in Snowmass inputs and agency charge letters led
+to a consensus prioritization that leverages US strengths while coordinating internationally. Criteria
+included scientific impact, readiness and risk, cost realism, operations profile, and the broader health
+of the field. Recommendations are robust to a baseline DOE‑HEP budget trajectory and adaptable to
+tighter or more favorable paths through staged scope, decision gates, and international cost sharing.
+
+2. THE RECOMMENDED US PROGRAM
+2.1 Higgs‑factory participation and collider strategy
+US participation in an offshore e⁺e⁻ Higgs factory is prioritized to achieve model‑independent Higgs
+couplings, rare/exotic decay sensitivity, and precision electroweak studies. A collider panel evaluates
+design options (e.g., circular vs linear), defines US deliverables (detectors, accelerators, software and
+computing), and sets decision points aligned with international timelines. In parallel, enabling technology
+R&D proceeds for future high‑energy colliders (high‑field magnets, SRF/cryogenics, advanced acceleration,
+precision instrumentation), including a muon‑collider demonstrator on the path to ~10 TeV pCM.
+
+2.2 Neutrino program (LBNF/DUNE and supporting facilities)
+The long‑baseline program remains a centerpiece. The first phase delivers decisive mass ordering and
+precision oscillation measurements using an intense wide‑band beam from Fermilab to far detectors (FD)
+at SURF, with a capable near‑detector (ND) complex. A re‑envisioned second phase accelerates physics
+through ACE‑MIRT (proton complex upgrades for sustained higher beam power), deployment of a third
+far‑detector module (FD3), and a more powerful ND. An advanced FD4 remains an option contingent on
+performance and budget. Tight integration of beamline monitoring, ND‑to‑FD extrapolation, calibration,
+and theory inputs ensures that growing statistics translate into robust measurements and sensitivity to
+beyond‑Standard‑Model (BSM) signatures (supernova neutrinos, atmospheric neutrinos, and baryon‑number
+violation in the same apparatus).
+
+2.3 Cosmic frontier: CMB‑S4, spectroscopic mapping, and high‑energy messengers
+CMB‑S4 is endorsed as a next‑generation facility targeting inflationary B‑modes, neutrino properties
+(sum of masses, effective relativistic species), and dark‑sector physics through precise polarization and
+temperature maps. A follow‑on wide‑field spectroscopic survey (Spec‑S5) is developed to map structure
+growth and dark energy with unprecedented systematics control. High‑energy neutrino and gamma‑ray
+observatories (including IceCube‑Gen2) provide complementary “messengers” and enable multi‑messenger
+astrophysics. Cross‑agency and international coordination are necessary for remote‑site operations and
+long‑term calibration stability.
+
+2.4 Dark matter: a comprehensive, multi‑probe program
+A staged direct‑detection line culminates in a world‑leading G3 experiment, emphasizing radiopurity,
+large target mass, and robust calibration/veto systems to reach the neutrino‑background floor. P5 leaves
+open the option of a second, complementary G3 configuration (distinct target or readout) if resources and
+partnerships allow. Accelerator‑based searches, sub‑GeV techniques, precision atomic/nuclear probes,
+and novel sensors broaden coverage, while astrophysical and cosmological probes add orthogonal constraints.
+
+2.5 Small‑ and mid‑scale projects portfolio
+A vibrant small/mid portfolio preserves agility for novel ideas, de‑risks technologies, and provides
+leadership opportunities for early‑career scientists. DOE’s new ASTAE line complements NSF’s MSRI/MRI
+mechanisms, with dynamic selection against opportunity cost, impact, and synergy with the larger roadmap.
+
+3. DECODE THE QUANTUM REALM (PRECISION AND COLLIDERS)
+3.1 Higgs and electroweak precision
+An e⁺e⁻ Higgs factory enables recoil‑based absolute couplings and rare/exotic decay searches. Large W/Z
+samples support ultra‑precise electroweak tests; global fits integrate HL‑LHC and factory measurements.
+Upgrades in detectors and software (precision timing, tracking, high‑granularity calorimetry, ML‑assisted
+reconstruction) increase sensitivity, including for long‑lived particles.
+
+3.2 QCD and flavour
+Heavy‑flavour and jet studies probe CKM unitarity, CP violation, and rare processes as sensitive null tests.
+Progress depends on higher‑order calculations, improved parton showers, and hadronization modeling,
+matched to experimental precision. Timing and flavor‑tagging upgrades sharpen sensitivity to long‑lived
+signatures and exotic topologies.
+
+3.3 Theory and global interpretation
+Sustained support for theory, phenomenology, lattice, and formal work is coupled to experimental
+milestones. SMEFT‑based global fits and reinterpretation frameworks integrate collider, flavour, and
+electroweak data with correlated systematics. Open data and public tools extend impact over decades.
+
+4. ILLUMINATE THE HIDDEN UNIVERSE (DARK MATTER & COSMIC)
+4.1 Direct and indirect searches
+Generation‑2 WIMP experiments complete operations while a G3 facility with extreme backgrounds control
+is prepared. Multiple technologies (including potential complementary G3) accelerate cross‑checks in the
+event of a signal and create resilience against procurement risks. Accelerator‑based and sub‑GeV techniques,
+precision atomic/nuclear probes, and low‑threshold sensors extend reach to light dark matter; indirect probes
+(gamma‑rays, charged particles, neutrinos) are interpreted with careful astrophysical modeling.
+
+4.2 Early universe and cosmic structure
+CMB‑S4 anchors early‑universe tests and neutrino properties; Spec‑S5 maps late‑time structure to constrain
+dark energy and growth history. Joint analyses across imaging, spectroscopy, and CMB datasets reduce
+systematics. Survey operations rely on robust calibration strategies, foreground separation, and data‑quality
+monitoring; shared infrastructure and long‑term logistics at remote sites are critical for success.
+
+5. EXPLORE NEW PARADIGMS (ACCELERATORS & NEXT FACILITIES)
+5.1 Targeted collider R&D and decision points
+A collider panel reviews Higgs‑factory options abroad and sets US participation levels with clear down‑selections
+and milestones. In parallel, enabling technologies for a future domestic collider are prioritized: high‑field magnets,
+SRF, wakefield acceleration, precision beam instrumentation, and muon‑beam capabilities.
+
+5.2 Muon‑collider demonstrator
+A demonstrator program addresses high‑brightness muon production, rapid cooling, fast acceleration,
+background mitigation, and the machine–detector interface. Successful milestones establish a credible path
+to a ~10 TeV pCM machine and leverage laboratory strengths while retiring major technology risks.
+
+5.3 Detector and instrumentation innovation
+Priorities include precision timing, ultralow‑mass tracking, high‑granularity calorimetry, low‑threshold sensors,
+radiation‑tolerant electronics, and advanced trigger/DAQ. Shared test‑beam infrastructure and common
+software stacks accelerate development and improve sustainability across projects.
+
+6. INVESTING IN THE FUTURE OF SCIENCE AND TECHNOLOGY
+6.1 Accelerator complex and test facilities
+The US accelerator complex is sustained as a national asset for beams, test stands, and detector development.
+Upgrades improve reliability and performance and are aligned with flagship timelines (notably DUNE). Test‑beam
+capacity, target stations, and common R&D infrastructure are treated as enabling investments coordinated
+across labs and universities.
+
+6.2 Computing and software
+Exabyte‑scale data motivate a federated architecture that combines on‑prem HPC with cloud resources.
+Workflow orchestration manages heterogeneous back‑ends; reproducible pipelines carry provenance and
+audit trails. Emphasis areas: ML‑accelerated reconstruction and simulation, robust/transparent algorithms,
+FAIR‑by‑design data, open‑science practices, and durable preservation (data tiers, metadata, analysis recipes).
+
+6.3 Theory and cross‑disciplinary links
+Support for lattice, formal, and phenomenological theory is matched to experimental schedules. Partnerships
+with applied math, computer science, and materials science accelerate algorithmic progress, ML robustness,
+novel detectors, and advanced controls.
+
+7. WORKFORCE, DIVERSITY, AND COMMUNITY HEALTH
+A technologically advanced, diverse workforce underpins delivery of the program. Recommended actions:
+strategic traineeships, fellowships, and early‑career awards; inclusive recruitment and retention; mentoring and
+clear promotion pathways; recognition for long‑term operations in detectors, accelerators, and software;
+and support for distributed teams (including remote sites). Outreach and education amplify impact and
+support long‑term facility operations.
+
+8. BUDGETARY CONSIDERATIONS AND PHASING
+Two DOE‑HEP scenarios anchor sequencing. The baseline sustains the core: timely delivery of ongoing
+projects; CMB‑S4; G3 dark matter (first configuration); strong US participation in an offshore Higgs factory;
+and decisive progress on DUNE with ACE‑MIRT, FD3, and ND upgrades (with an option for FD4). Under
+tighter scenarios, impacts include reduced Higgs‑factory participation, deferral of ACE‑MIRT, curtailed ND
+enhancements, and at most partial participation in a second G3 configuration. Operations and research
+budgets are protected so that completed facilities deliver science and the workforce is retained.
+
+9. RISK, GOVERNANCE, AND INTERNATIONAL PARTNERSHIPS
+Technical, schedule, and programmatic risks are managed via staging, prototyping, industrialization paths,
+and site coordination. Governance emphasizes clear decision gates, transparent cost/schedule tracking,
+and early engagement with international partners through MoUs and in‑kind frameworks. The strategy is
+explicitly global: offshore Higgs factory with shared leadership; DUNE as a US‑hosted international project;
+and cosmic facilities that require inter‑agency and cross‑border cooperation. Computing/software roles and
+long‑term operations responsibilities are distributed to align with partner strengths.
+
+10. SUSTAINABILITY AND COMMUNITY VALUES
+Energy‑efficient computing and facilities, low‑carbon materials and logistics, and site‑appropriate environmental
+stewardship are treated as design constraints. Open science, reproducibility, and durable preservation are
+policy‑level commitments. Safety, well‑being, and inclusive culture are first‑order requirements that constrain
+design choices and schedules; success metrics include people and process outcomes in addition to physics.
+
+11. IMPLEMENTATION OUTLOOK
+Near‑term priorities: harvest ongoing investments; launch CMB‑S4 and the first G3 dark‑matter experiment;
+re‑optimize and deliver DUNE with ACE‑MIRT and FD3 while scoping an advanced FD4; and organize the
+collider panel to define US participation in a Higgs factory and set milestones for future colliders, including a
+muon‑collider demonstrator. The portfolio remains adaptive: if budgets improve, add a second G3 detector,
+expanded ND capability, and enhanced R&D; if budgets tighten, staged delivery protects core science and ops.
+
+12. NEUTRINO PROGRAM DETAILS (LBNF/DUNE)
+12.1 Physics goals and measurement strategy
+DUNE targets decisive CP‑violation sensitivity, precision tests of the three‑flavor framework and matter effects,
+and BSM sensitivity. The wide‑band beam and long baseline enable spectral analyses that disentangle the
+CP phase, mass ordering, and matter‑induced asymmetries, with complementary information from appearance
+and disappearance channels. Ancillary physics includes supernova burst neutrinos, atmospheric neutrinos,
+and searches for baryon‑number violation, leveraging LArTPC imaging and large fiducial mass.
+
+12.2 Near‑detector and far‑detector integration
+The ND complex provides flux determination, cross‑section measurements, and constraints on nuclear‑model
+uncertainties; near–far extrapolation methods and shared reconstruction frameworks propagate these constraints
+to the FD. Calibration plans define control samples, timing alignment, and light/charge‑response monitoring,
+with regular validation runs to maintain stable response across upgrades. Unified software and common
+datasets streamline systematics treatment and reinterpretation.
+
+12.3 ACE‑MIRT and beam‑power roadmap
+ACE‑MIRT upgrades the accelerator complex for higher sustained beam power with reliability compatible with
+multi‑year campaigns. The roadmap coordinates target and horn systems, thermal management, remote handling,
+and radiological protection, with contingency for component stress and procurement timelines. Performance gates
+ensure incremental power translates into sensitivity gains rather than increased downtime or systematics.
+
+12.4 Systematics and analysis strategy
+Systematics control employs redundant approaches: ND measurements and beam monitoring; FD calibration with
+well‑understood channels; interaction‑model constraints; and diversified analysis methods for cross‑validation.
+Shared software stacks and documented analysis workflows facilitate reproducibility and long‑term preservation,
+with provisions for open data as feasible.
+
+12.5 International roles and operations model
+DUNE is a US‑hosted international project with in‑kind and cash contributions, shared construction deliverables,
+and long‑term operations responsibilities. Agreements specify commissioning roles, data access, authorship, and
+computing/software responsibilities distributed to reflect partner strengths while maintaining a coherent analysis
+ecosystem aligned with operations needs.
+
+13. DARK‑MATTER PROGRAM DETAILS
+13.1 G3 direct detection
+The G3 facility emphasizes ultra‑low backgrounds via material selection and screening, cleanliness protocols,
+and deep‑underground siting; scalable detector modules with robust calibration and veto systems; and sensitivity
+to both spin‑independent and spin‑dependent interactions. Analysis frameworks anticipate solar and supernova
+neutrino physics in the same apparatus and plan for background‑limited statistics in the “neutrino fog.”
+
+13.2 Complementary technology option
+A second G3 configuration remains possible, recognizing that distinct target media and readout technologies
+provide orthogonal systematics. Multiple technologies also accelerate cross‑checks in the event of a candidate
+signal and improve resilience to procurement and operations risk.
+
+13.3 Broader search ecosystem
+Accelerator‑based and sub‑GeV techniques, precision atomic/nuclear probes, and new sensor concepts
+(including low‑threshold phonon or charge readout) extend reach to light dark matter and other scenarios beyond
+classic WIMPs. Indirect searches are interpreted with careful astrophysical modeling and cross‑correlations with
+cosmological datasets to reduce degeneracies.
+
+14. COSMIC PROGRAM DETAILS
+14.1 CMB‑S4
+CMB‑S4 combines sensitivity, frequency coverage, and sky area to target inflationary B‑mode polarization,
+constrain neutrino mass, and sharpen dark‑sector limits. Stable operations rely on robust cryogenics, calibration
+sources, foreground separation strategies, and data‑quality monitoring. Long‑term planning for remote‑site
+logistics, staffing, and infrastructure is essential to meet sensitivity and uptime goals.
+
+14.2 Spec‑S5
+The spectroscopic survey aims for high completeness, uniform target selection, precise fiber assignment,
+and stable spectral calibration. Design choices prioritize systematics control critical to large‑scale‑structure
+inference; cross‑correlations with imaging and CMB datasets deliver tighter cosmological constraints and
+improved mitigation of observational artifacts and selection effects.
+
+14.3 High‑energy messengers
+Next‑generation neutrino and gamma‑ray facilities expand discovery space for transient and diffuse sources.
+Coordinated observing campaigns and open‑data practices enable multi‑messenger analyses with shared
+alert systems and community tools.
+
+15. COLLIDER STRATEGY DETAILS
+15.1 Offshore Higgs factory participation
+US deliverables focus on comparative advantage: precision silicon tracking and timing, high‑granularity
+calorimetry, advanced trigger/DAQ, and software/computing. Responsibilities are aligned with international
+milestones, with attention to long‑term operations and upgrade paths; decision gates ensure commitments track
+feasibility and cost envelopes established by partner studies.
+
+15.2 Future collider R&D
+High‑field magnets, SRF, advanced acceleration schemes, precision beam instrumentation, and muon‑beam
+capabilities are pursued with clear performance gates and down‑selections. Prototyping and system‑level tests
+retire risk before construction decisions; shared facilities accelerate learning and reduce duplication.
+
+15.3 Machine–detector interface and physics software
+Early co‑design of optics, shielding, timing, and reconstruction algorithms ensures that benchmark performance
+targets are achievable under realistic backgrounds and pileup. Shared simulation and analysis frameworks support
+consistent performance validation across concepts and facilitate reinterpretation over the facility lifetime.
+
+16. COMPUTING, SOFTWARE, AND DATA MANAGEMENT (DETAILS)
+16.1 Architecture and workflow
+A federated compute architecture spanning labs and universities combines HPC and cloud resources; workflow
+orchestration manages heterogeneous back‑ends; and reproducible pipelines include provenance and audit trails.
+Data movement costs are reduced by intelligent caching and co‑location of compute and data.
+
+16.2 Algorithms, simulation, and ML
+ML‑accelerated reconstruction and fast‑simulation surrogates complement traditional algorithms. Emphasis is
+placed on robustness, calibration transfer, uncertainty propagation, and interpretability. Community benchmarks,
+open models, and shared toolkits promote efficiency and transparency across experiments.
+
+16.3 Data tiers, curation, and preservation
+Clear data tiers and documented analysis recipes reduce onboarding cost and enable long‑term re‑use. Metadata,
+software environments, and calibration constants are preserved with the data. Access policies balance openness
+with responsible stewardship and facility operations constraints.
+
+16.4 Energy‑efficient computing
+Computing and storage are optimized for energy efficiency through hardware choices, workload placement,
+and scheduling; cooling and facility design reduce energy per useful computation.
+
+17. WORKFORCE, TRAINING, AND COMMUNITY SUPPORT (DETAILS)
+17.1 Training and career pathways
+Traineeships, fellowships, and early‑career awards align with project milestones. Technical tracks that value
+long‑term operational excellence in detectors, accelerators, and software stand alongside traditional academic
+routes, with recognition and promotion pathways tailored to these roles.
+
+17.2 Inclusion, access, and retention
+Inclusive recruitment, mentorship networks, and supportive workplace policies improve retention and broaden
+participation. Collaboration structures ensure equitable access to leadership and authorship; climate studies and
+feedback loops identify and address issues proactively.
+
+17.3 Outreach and education
+Shared outreach resources (curricula, public datasets, notebooks) amplify impact and reduce duplication. Programs
+engage local communities around laboratories and remote sites, building trust and supporting long‑term operations.
+
+18. RISK AND MITIGATION (DETAILS)
+18.1 Technical risks
+For DUNE: beam‑power reliability, ND–FD systematics, calibration throughput; for CMB‑S4: calibration stability,
+foreground separation, and site logistics; for G3: radiopurity, module scaling, and background modeling; for
+collider R&D: industrialization and integration risks. Mitigation combines staged prototyping, system‑level tests,
+redundancy, and conservative engineering margins with clear off‑ramps and re‑scoping options.
+
+18.2 Programmatic risks
+Budget volatility and supply‑chain shocks are managed by staging, flexible phasing, diversified vendor pools, and
+international partnerships with structured in‑kind frameworks. Transparent tracking of cost, schedule, and risk
+supports credible decision gates; operations budgets are protected to harvest science.
+
+19. GOVERNANCE AND INTERNATIONAL COORDINATION (DETAILS)
+19.1 In‑kind frameworks and software/computing
+MoUs define in‑kind contributions, commissioning roles, and long‑term operations support. Common software stacks,
+shared calibration infrastructure, and interoperable data systems reduce duplication and improve sustainability.
+
+19.2 Reviews and scope control
+External reviews guide down‑selections and scope freezes; construction readiness follows demonstrated performance
+against technical and management milestones. Scope changes tie to documented science, cost, and schedule impacts.
+
+20. SUSTAINABILITY (DETAILS)
+20.1 Construction and operations
+Low‑carbon materials and logistics, energy‑efficient computing and cooling, and waste‑heat recovery are designed‑in.
+Environmental stewardship plans address water, land use, and local ecosystems; plans are updated across phases.
+
+20.2 Community values
+Safety, inclusion, and responsible research conduct are treated as first‑order requirements that constrain design,
+schedules, and operations.
+
+21. SMALL/MID‑SCALE PORTFOLIO (DETAILS)
+21.1 Rapid‑response and pathfinders
+Small/mid‑scale efforts incubate new ideas, de‑risk technologies, and deliver timely science. Agile mechanisms enable
+responsive starts while maintaining rigorous review and credible operations planning.
+
+21.2 Coordination and lifecycle
+Shared infrastructure (test beams, clean rooms, DAQ farms), common software, and coordinated operations reduce
+duplication. Clear lifecycle planning—construction, operations, upgrades, and decommissioning—protects resources
+and data integrity.
+
+22. CONCLUSION
+The program secures US leadership through flagship facilities, precision science, and sustained technology investments
+while sustaining the community that delivers the science. It endorses decisive participation in an offshore Higgs factory,
+accelerates the US neutrino program with ACE‑MIRT and FD3 (with an FD4 option), completes a world‑leading dark‑matter
+search with G3, launches transformational cosmic measurements with CMB‑S4 and Spec‑S5, and advances the R&D needed
+for the next collider era. With clear decision gates, realistic budgets, strong international partnerships, and explicit
+commitments to workforce, open science, and sustainability, the plan is designed to deliver major results throughout the
+next decade and prepare the ground for facilities that follow.
+

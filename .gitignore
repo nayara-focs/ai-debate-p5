@@ -3,11 +3,24 @@
 
 # private or heavyweight local folders
 DEV/
+config.py
+
+# docs: ignore all .pdf/.docx/.txt, except the single context file
 docs/*.pdf
 docs/*.docx
+docs/*.txt
+docs/figure/
+docs/submission/
+# !docs/context_p5_plus_fcc.txt
+
 references/
 examples/
+runs/
+plots/
 
+# ignore result artefacts
+*.csv
+*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
