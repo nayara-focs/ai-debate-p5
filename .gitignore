@@ -3,7 +3,6 @@
 
 # private or heavyweight local folders
 DEV/
-config.py
 
 # docs: ignore all .pdf/.docx/.txt, except the single context file
 docs/*.pdf
