@@ -88,28 +88,13 @@ def main():
         global_stats["context_sha256"]     = hashlib.sha256(_combined_bytes).hexdigest()
 
     else:
-        # Single-file (legacy) mode: unchanged behaviour
-        static_context = load_static_context(config.STATIC_CONTEXT_FILE)
-        ctx_path = config.STATIC_CONTEXT_FILE
-        try:
-            ctx_path_str = str(ctx_path)  # handles Path objects too
-        except Exception:
-            ctx_path_str = f"{ctx_path}"
-
-        with open(ctx_path, "rb") as f:
-            _ctx_bytes = f.read()
-
-        # Human-readable summary, without implying a fixed order
-        global_stats["context_path"]       = f"{args.ctx_p5} + {args.ctx_fcc}"
-        # Machine-readable sources
-        global_stats["context_paths"]      = _ctx_source
-        # Reflect the actual run mode you requested (random / p5_first / fcc_first / alternate)
-        global_stats["context_order_mode"] = args.context_order
-        global_stats["context_order_seed"] = args.seed
-        # Fingerprint the exact combined bytes for reproducibility (order here is load-time only)
-        global_stats["context_bytes"]      = len(_combined_bytes)
-        global_stats["context_sha256"]     = hashlib.sha256(_combined_bytes).hexdigest()
-
+        # Static single-file mode has been removed to avoid ambiguity about which
+        # evidence summary is used. We now require explicit P5/FCC context files.
+        raise SystemExit(
+         "Error: static context mode (config.STATIC_CONTEXT_FILE) has been removed.\n"
+         "Please provide both --ctx-p5 and --ctx-fcc, for example:\n"
+         "  --ctx-p5 docs/p5_summary.txt --ctx-fcc docs/fcc_summary.txt"
+        )
     total_expected = (
         len(config.DEBATERS) * (len(config.DEBATERS) - 1) * 2
         * config.REPEATS_PER_PAIR

@@ -10,9 +10,8 @@ docs/*.docx
 docs/*.txt
 docs/figure/
 docs/submission/
-# !docs/context_p5_plus_fcc.txt
-!docs/context_p5_plus_fcc.txt
-!docs/context_p5_text.txt
+!docs/p5_summary.txt
+!docs/fcc_summary.txt
 
 references/
 examples/

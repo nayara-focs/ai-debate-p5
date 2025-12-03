@@ -54,28 +54,28 @@ python scripts/run_debate.py --repeats 1 --turns 2 --quiet --out runs/YYYYMMDD/t
 
 ---
 
-## Repo layout (2025‑08)
+## Repo layout 
 
 ```
-ai-debate-p5/              – GitHub root
+ai-debate-p5/              
 │
-├─ src/ai_debate_p5/       – importable package
+├─ src/ai_debate_p5/       
 │   ├─ __init__.py
 │   ├─ debate_engine.py    – debate loop & openings
 │   ├─ judge_module.py     – impartial LLM judge
 │   ├─ stats_module.py     – global counters / helpers
 │   └─ stats/elo_bt.py     – Bradley–Terry fitter + win matrix
 │
-├─ scripts/                – CLI entry points
+├─ scripts/                
 │   └─ run_debate.py
 │
 ├─ docs/
-│   └─ context_p5_plus_fcc.txt   – concatenated P5 (2023) + FCC (2025) evidence summary
+│   ├─ p5_summary.txt     
+│   └─ fcc_summary.txt
 │
-├─ runs/                   – outputs (logs, stats, Elo CSVs)
 ├─ .gitignore
 ├─ requirements.txt
-└─ README.md               – you are here
+└─ README.md               
 ```
 
 ---
@@ -88,8 +88,3 @@ ai-debate-p5/              – GitHub root
 ### Note on context files
 
 `docs/context_p5_plus_fcc.txt` is a **distilled summary** prepared for this prototype. It may omit details or emphasis from the original documents. Each run logs the file’s SHA-256 and byte size for reproducibility.
-
----
-## Licence
-
-MIT – see `LICENSE`.

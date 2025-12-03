@@ -1,0 +1,338 @@
+Particle Physics Project Prioritization Panel (P5) 2023 — Summary
+
+EXECUTIVE SUMMARY
+The 2023 P5 report sets a balanced, decade-scale strategy for US particle physics, framed by a
+20‑year global vision and two budget scenarios. Its program design emphasizes (i) high discovery
+potential across three themes—Decipher the Quantum Realm, Illuminate the Hidden Universe, and
+Explore New Paradigms; (ii) a portfolio spanning small/mid/large projects so that science is delivered
+continuously; (iii) strong coordination with international partners for shared facilities; and (iv) enabling
+investments in workforce, R&D, software/computing, and sustainability. The plan (a) completes and
+harvests ongoing experiments (HL‑LHC, DUNE/LBNF first phase, Rubin/LSST, DESI, SBN, Muon g‑2,
+Mu2e, Belle II, LHCb, direct dark‑matter experiments), (b) constructs a set of priority facilities—CMB‑S4;
+a re‑envisioned second phase of DUNE with ACE‑MIRT beam power and enhanced near/far detectors;
+an offshore e⁺e⁻ Higgs factory with substantial US participation; a Generation‑3 (G3) direct‑detection
+dark‑matter experiment reaching the “neutrino fog”; and IceCube‑Gen2—and (c) launches enabling R&D
+toward a future ~10 TeV parton‑center‑of‑momentum (pCM) collider, with a muon‑collider demonstrator
+as a key milestone. The plan also establishes a nimble small‑project line (ASTAE) and continues mid‑scale
+opportunities through NSF programs. Workforce development, open science, and energy‑efficient
+operations are treated as program requirements, not afterthoughts.
+
+1. INTRODUCTION AND PROCESS
+A community‑driven planning process grounded in Snowmass inputs and agency charge letters led
+to a consensus prioritization that leverages US strengths while coordinating internationally. Criteria
+included scientific impact, readiness and risk, cost realism, operations profile, and the broader health
+of the field. Recommendations are robust to a baseline DOE‑HEP budget trajectory and adaptable to
+tighter or more favorable paths through staged scope, decision gates, and international cost sharing.
+
+2. THE RECOMMENDED US PROGRAM
+2.1 Higgs‑factory participation and collider strategy
+US participation in an offshore e⁺e⁻ Higgs factory is prioritized to achieve model‑independent Higgs
+couplings, rare/exotic decay sensitivity, and precision electroweak studies. A collider panel evaluates
+design options (e.g., circular vs linear), defines US deliverables (detectors, accelerators, software and
+computing), and sets decision points aligned with international timelines. In parallel, enabling technology
+R&D proceeds for future high‑energy colliders (high‑field magnets, SRF/cryogenics, advanced acceleration,
+precision instrumentation), including a muon‑collider demonstrator on the path to ~10 TeV pCM.
+
+2.2 Neutrino program (LBNF/DUNE and supporting facilities)
+The long‑baseline program remains a centerpiece. The first phase delivers decisive mass ordering and
+precision oscillation measurements using an intense wide‑band beam from Fermilab to far detectors (FD)
+at SURF, with a capable near‑detector (ND) complex. A re‑envisioned second phase accelerates physics
+through ACE‑MIRT (proton complex upgrades for sustained higher beam power), deployment of a third
+far‑detector module (FD3), and a more powerful ND. An advanced FD4 remains an option contingent on
+performance and budget. Tight integration of beamline monitoring, ND‑to‑FD extrapolation, calibration,
+and theory inputs ensures that growing statistics translate into robust measurements and sensitivity to
+beyond‑Standard‑Model (BSM) signatures (supernova neutrinos, atmospheric neutrinos, and baryon‑number
+violation in the same apparatus).
+
+2.3 Cosmic frontier: CMB‑S4, spectroscopic mapping, and high‑energy messengers
+CMB‑S4 is endorsed as a next‑generation facility targeting inflationary B‑modes, neutrino properties
+(sum of masses, effective relativistic species), and dark‑sector physics through precise polarization and
+temperature maps. A follow‑on wide‑field spectroscopic survey (Spec‑S5) is developed to map structure
+growth and dark energy with unprecedented systematics control. High‑energy neutrino and gamma‑ray
+observatories (including IceCube‑Gen2) provide complementary “messengers” and enable multi‑messenger
+astrophysics. Cross‑agency and international coordination are necessary for remote‑site operations and
+long‑term calibration stability.
+
+2.4 Dark matter: a comprehensive, multi‑probe program
+A staged direct‑detection line culminates in a world‑leading G3 experiment, emphasizing radiopurity,
+large target mass, and robust calibration/veto systems to reach the neutrino‑background floor. P5 leaves
+open the option of a second, complementary G3 configuration (distinct target or readout) if resources and
+partnerships allow. Accelerator‑based searches, sub‑GeV techniques, precision atomic/nuclear probes,
+and novel sensors broaden coverage, while astrophysical and cosmological probes add orthogonal constraints.
+
+2.5 Small‑ and mid‑scale projects portfolio
+A vibrant small/mid portfolio preserves agility for novel ideas, de‑risks technologies, and provides
+leadership opportunities for early‑career scientists. DOE’s new ASTAE line complements NSF’s MSRI/MRI
+mechanisms, with dynamic selection against opportunity cost, impact, and synergy with the larger roadmap.
+
+3. DECODE THE QUANTUM REALM (PRECISION AND COLLIDERS)
+3.1 Higgs and electroweak precision
+An e⁺e⁻ Higgs factory enables recoil‑based absolute couplings and rare/exotic decay searches. Large W/Z
+samples support ultra‑precise electroweak tests; global fits integrate HL‑LHC and factory measurements.
+Upgrades in detectors and software (precision timing, tracking, high‑granularity calorimetry, ML‑assisted
+reconstruction) increase sensitivity, including for long‑lived particles.
+
+3.2 QCD and flavour
+Heavy‑flavour and jet studies probe CKM unitarity, CP violation, and rare processes as sensitive null tests.
+Progress depends on higher‑order calculations, improved parton showers, and hadronization modeling,
+matched to experimental precision. Timing and flavor‑tagging upgrades sharpen sensitivity to long‑lived
+signatures and exotic topologies.
+
+3.3 Theory and global interpretation
+Sustained support for theory, phenomenology, lattice, and formal work is coupled to experimental
+milestones. SMEFT‑based global fits and reinterpretation frameworks integrate collider, flavour, and
+electroweak data with correlated systematics. Open data and public tools extend impact over decades.
+
+4. ILLUMINATE THE HIDDEN UNIVERSE (DARK MATTER & COSMIC)
+4.1 Direct and indirect searches
+Generation‑2 WIMP experiments complete operations while a G3 facility with extreme backgrounds control
+is prepared. Multiple technologies (including potential complementary G3) accelerate cross‑checks in the
+event of a signal and create resilience against procurement risks. Accelerator‑based and sub‑GeV techniques,
+precision atomic/nuclear probes, and low‑threshold sensors extend reach to light dark matter; indirect probes
+(gamma‑rays, charged particles, neutrinos) are interpreted with careful astrophysical modeling.
+
+4.2 Early universe and cosmic structure
+CMB‑S4 anchors early‑universe tests and neutrino properties; Spec‑S5 maps late‑time structure to constrain
+dark energy and growth history. Joint analyses across imaging, spectroscopy, and CMB datasets reduce
+systematics. Survey operations rely on robust calibration strategies, foreground separation, and data‑quality
+monitoring; shared infrastructure and long‑term logistics at remote sites are critical for success.
+
+5. EXPLORE NEW PARADIGMS (ACCELERATORS & NEXT FACILITIES)
+5.1 Targeted collider R&D and decision points
+A collider panel reviews Higgs‑factory options abroad and sets US participation levels with clear down‑selections
+and milestones. In parallel, enabling technologies for a future domestic collider are prioritized: high‑field magnets,
+SRF, wakefield acceleration, precision beam instrumentation, and muon‑beam capabilities.
+
+5.2 Muon‑collider demonstrator
+A demonstrator program addresses high‑brightness muon production, rapid cooling, fast acceleration,
+background mitigation, and the machine–detector interface. Successful milestones establish a credible path
+to a ~10 TeV pCM machine and leverage laboratory strengths while retiring major technology risks.
+
+5.3 Detector and instrumentation innovation
+Priorities include precision timing, ultralow‑mass tracking, high‑granularity calorimetry, low‑threshold sensors,
+radiation‑tolerant electronics, and advanced trigger/DAQ. Shared test‑beam infrastructure and common
+software stacks accelerate development and improve sustainability across projects.
+
+6. INVESTING IN THE FUTURE OF SCIENCE AND TECHNOLOGY
+6.1 Accelerator complex and test facilities
+The US accelerator complex is sustained as a national asset for beams, test stands, and detector development.
+Upgrades improve reliability and performance and are aligned with flagship timelines (notably DUNE). Test‑beam
+capacity, target stations, and common R&D infrastructure are treated as enabling investments coordinated
+across labs and universities.
+
+6.2 Computing and software
+Exabyte‑scale data motivate a federated architecture that combines on‑prem HPC with cloud resources.
+Workflow orchestration manages heterogeneous back‑ends; reproducible pipelines carry provenance and
+audit trails. Emphasis areas: ML‑accelerated reconstruction and simulation, robust/transparent algorithms,
+FAIR‑by‑design data, open‑science practices, and durable preservation (data tiers, metadata, analysis recipes).
+
+6.3 Theory and cross‑disciplinary links
+Support for lattice, formal, and phenomenological theory is matched to experimental schedules. Partnerships
+with applied math, computer science, and materials science accelerate algorithmic progress, ML robustness,
+novel detectors, and advanced controls.
+
+7. WORKFORCE, DIVERSITY, AND COMMUNITY HEALTH
+A technologically advanced, diverse workforce underpins delivery of the program. Recommended actions:
+strategic traineeships, fellowships, and early‑career awards; inclusive recruitment and retention; mentoring and
+clear promotion pathways; recognition for long‑term operations in detectors, accelerators, and software;
+and support for distributed teams (including remote sites). Outreach and education amplify impact and
+support long‑term facility operations.
+
+8. BUDGETARY CONSIDERATIONS AND PHASING
+Two DOE‑HEP scenarios anchor sequencing. The baseline sustains the core: timely delivery of ongoing
+projects; CMB‑S4; G3 dark matter (first configuration); strong US participation in an offshore Higgs factory;
+and decisive progress on DUNE with ACE‑MIRT, FD3, and ND upgrades (with an option for FD4). Under
+tighter scenarios, impacts include reduced Higgs‑factory participation, deferral of ACE‑MIRT, curtailed ND
+enhancements, and at most partial participation in a second G3 configuration. Operations and research
+budgets are protected so that completed facilities deliver science and the workforce is retained.
+
+9. RISK, GOVERNANCE, AND INTERNATIONAL PARTNERSHIPS
+Technical, schedule, and programmatic risks are managed via staging, prototyping, industrialization paths,
+and site coordination. Governance emphasizes clear decision gates, transparent cost/schedule tracking,
+and early engagement with international partners through MoUs and in‑kind frameworks. The strategy is
+explicitly global: offshore Higgs factory with shared leadership; DUNE as a US‑hosted international project;
+and cosmic facilities that require inter‑agency and cross‑border cooperation. Computing/software roles and
+long‑term operations responsibilities are distributed to align with partner strengths.
+
+10. SUSTAINABILITY AND COMMUNITY VALUES
+Energy‑efficient computing and facilities, low‑carbon materials and logistics, and site‑appropriate environmental
+stewardship are treated as design constraints. Open science, reproducibility, and durable preservation are
+policy‑level commitments. Safety, well‑being, and inclusive culture are first‑order requirements that constrain
+design choices and schedules; success metrics include people and process outcomes in addition to physics.
+
+11. IMPLEMENTATION OUTLOOK
+Near‑term priorities: harvest ongoing investments; launch CMB‑S4 and the first G3 dark‑matter experiment;
+re‑optimize and deliver DUNE with ACE‑MIRT and FD3 while scoping an advanced FD4; and organize the
+collider panel to define US participation in a Higgs factory and set milestones for future colliders, including a
+muon‑collider demonstrator. The portfolio remains adaptive: if budgets improve, add a second G3 detector,
+expanded ND capability, and enhanced R&D; if budgets tighten, staged delivery protects core science and ops.
+
+12. NEUTRINO PROGRAM DETAILS (LBNF/DUNE)
+12.1 Physics goals and measurement strategy
+DUNE targets decisive CP‑violation sensitivity, precision tests of the three‑flavor framework and matter effects,
+and BSM sensitivity. The wide‑band beam and long baseline enable spectral analyses that disentangle the
+CP phase, mass ordering, and matter‑induced asymmetries, with complementary information from appearance
+and disappearance channels. Ancillary physics includes supernova burst neutrinos, atmospheric neutrinos,
+and searches for baryon‑number violation, leveraging LArTPC imaging and large fiducial mass.
+
+12.2 Near‑detector and far‑detector integration
+The ND complex provides flux determination, cross‑section measurements, and constraints on nuclear‑model
+uncertainties; near–far extrapolation methods and shared reconstruction frameworks propagate these constraints
+to the FD. Calibration plans define control samples, timing alignment, and light/charge‑response monitoring,
+with regular validation runs to maintain stable response across upgrades. Unified software and common
+datasets streamline systematics treatment and reinterpretation.
+
+12.3 ACE‑MIRT and beam‑power roadmap
+ACE‑MIRT upgrades the accelerator complex for higher sustained beam power with reliability compatible with
+multi‑year campaigns. The roadmap coordinates target and horn systems, thermal management, remote handling,
+and radiological protection, with contingency for component stress and procurement timelines. Performance gates
+ensure incremental power translates into sensitivity gains rather than increased downtime or systematics.
+
+12.4 Systematics and analysis strategy
+Systematics control employs redundant approaches: ND measurements and beam monitoring; FD calibration with
+well‑understood channels; interaction‑model constraints; and diversified analysis methods for cross‑validation.
+Shared software stacks and documented analysis workflows facilitate reproducibility and long‑term preservation,
+with provisions for open data as feasible.
+
+12.5 International roles and operations model
+DUNE is a US‑hosted international project with in‑kind and cash contributions, shared construction deliverables,
+and long‑term operations responsibilities. Agreements specify commissioning roles, data access, authorship, and
+computing/software responsibilities distributed to reflect partner strengths while maintaining a coherent analysis
+ecosystem aligned with operations needs.
+
+13. DARK‑MATTER PROGRAM DETAILS
+13.1 G3 direct detection
+The G3 facility emphasizes ultra‑low backgrounds via material selection and screening, cleanliness protocols,
+and deep‑underground siting; scalable detector modules with robust calibration and veto systems; and sensitivity
+to both spin‑independent and spin‑dependent interactions. Analysis frameworks anticipate solar and supernova
+neutrino physics in the same apparatus and plan for background‑limited statistics in the “neutrino fog.”
+
+13.2 Complementary technology option
+A second G3 configuration remains possible, recognizing that distinct target media and readout technologies
+provide orthogonal systematics. Multiple technologies also accelerate cross‑checks in the event of a candidate
+signal and improve resilience to procurement and operations risk.
+
+13.3 Broader search ecosystem
+Accelerator‑based and sub‑GeV techniques, precision atomic/nuclear probes, and new sensor concepts
+(including low‑threshold phonon or charge readout) extend reach to light dark matter and other scenarios beyond
+classic WIMPs. Indirect searches are interpreted with careful astrophysical modeling and cross‑correlations with
+cosmological datasets to reduce degeneracies.
+
+14. COSMIC PROGRAM DETAILS
+14.1 CMB‑S4
+CMB‑S4 combines sensitivity, frequency coverage, and sky area to target inflationary B‑mode polarization,
+constrain neutrino mass, and sharpen dark‑sector limits. Stable operations rely on robust cryogenics, calibration
+sources, foreground separation strategies, and data‑quality monitoring. Long‑term planning for remote‑site
+logistics, staffing, and infrastructure is essential to meet sensitivity and uptime goals.
+
+14.2 Spec‑S5
+The spectroscopic survey aims for high completeness, uniform target selection, precise fiber assignment,
+and stable spectral calibration. Design choices prioritize systematics control critical to large‑scale‑structure
+inference; cross‑correlations with imaging and CMB datasets deliver tighter cosmological constraints and
+improved mitigation of observational artifacts and selection effects.
+
+14.3 High‑energy messengers
+Next‑generation neutrino and gamma‑ray facilities expand discovery space for transient and diffuse sources.
+Coordinated observing campaigns and open‑data practices enable multi‑messenger analyses with shared
+alert systems and community tools.
+
+15. COLLIDER STRATEGY DETAILS
+15.1 Offshore Higgs factory participation
+US deliverables focus on comparative advantage: precision silicon tracking and timing, high‑granularity
+calorimetry, advanced trigger/DAQ, and software/computing. Responsibilities are aligned with international
+milestones, with attention to long‑term operations and upgrade paths; decision gates ensure commitments track
+feasibility and cost envelopes established by partner studies.
+
+15.2 Future collider R&D
+High‑field magnets, SRF, advanced acceleration schemes, precision beam instrumentation, and muon‑beam
+capabilities are pursued with clear performance gates and down‑selections. Prototyping and system‑level tests
+retire risk before construction decisions; shared facilities accelerate learning and reduce duplication.
+
+15.3 Machine–detector interface and physics software
+Early co‑design of optics, shielding, timing, and reconstruction algorithms ensures that benchmark performance
+targets are achievable under realistic backgrounds and pileup. Shared simulation and analysis frameworks support
+consistent performance validation across concepts and facilitate reinterpretation over the facility lifetime.
+
+16. COMPUTING, SOFTWARE, AND DATA MANAGEMENT (DETAILS)
+16.1 Architecture and workflow
+A federated compute architecture spanning labs and universities combines HPC and cloud resources; workflow
+orchestration manages heterogeneous back‑ends; and reproducible pipelines include provenance and audit trails.
+Data movement costs are reduced by intelligent caching and co‑location of compute and data.
+
+16.2 Algorithms, simulation, and ML
+ML‑accelerated reconstruction and fast‑simulation surrogates complement traditional algorithms. Emphasis is
+placed on robustness, calibration transfer, uncertainty propagation, and interpretability. Community benchmarks,
+open models, and shared toolkits promote efficiency and transparency across experiments.
+
+16.3 Data tiers, curation, and preservation
+Clear data tiers and documented analysis recipes reduce onboarding cost and enable long‑term re‑use. Metadata,
+software environments, and calibration constants are preserved with the data. Access policies balance openness
+with responsible stewardship and facility operations constraints.
+
+16.4 Energy‑efficient computing
+Computing and storage are optimized for energy efficiency through hardware choices, workload placement,
+and scheduling; cooling and facility design reduce energy per useful computation.
+
+17. WORKFORCE, TRAINING, AND COMMUNITY SUPPORT (DETAILS)
+17.1 Training and career pathways
+Traineeships, fellowships, and early‑career awards align with project milestones. Technical tracks that value
+long‑term operational excellence in detectors, accelerators, and software stand alongside traditional academic
+routes, with recognition and promotion pathways tailored to these roles.
+
+17.2 Inclusion, access, and retention
+Inclusive recruitment, mentorship networks, and supportive workplace policies improve retention and broaden
+participation. Collaboration structures ensure equitable access to leadership and authorship; climate studies and
+feedback loops identify and address issues proactively.
+
+17.3 Outreach and education
+Shared outreach resources (curricula, public datasets, notebooks) amplify impact and reduce duplication. Programs
+engage local communities around laboratories and remote sites, building trust and supporting long‑term operations.
+
+18. RISK AND MITIGATION (DETAILS)
+18.1 Technical risks
+For DUNE: beam‑power reliability, ND–FD systematics, calibration throughput; for CMB‑S4: calibration stability,
+foreground separation, and site logistics; for G3: radiopurity, module scaling, and background modeling; for
+collider R&D: industrialization and integration risks. Mitigation combines staged prototyping, system‑level tests,
+redundancy, and conservative engineering margins with clear off‑ramps and re‑scoping options.
+
+18.2 Programmatic risks
+Budget volatility and supply‑chain shocks are managed by staging, flexible phasing, diversified vendor pools, and
+international partnerships with structured in‑kind frameworks. Transparent tracking of cost, schedule, and risk
+supports credible decision gates; operations budgets are protected to harvest science.
+
+19. GOVERNANCE AND INTERNATIONAL COORDINATION (DETAILS)
+19.1 In‑kind frameworks and software/computing
+MoUs define in‑kind contributions, commissioning roles, and long‑term operations support. Common software stacks,
+shared calibration infrastructure, and interoperable data systems reduce duplication and improve sustainability.
+
+19.2 Reviews and scope control
+External reviews guide down‑selections and scope freezes; construction readiness follows demonstrated performance
+against technical and management milestones. Scope changes tie to documented science, cost, and schedule impacts.
+
+20. SUSTAINABILITY (DETAILS)
+20.1 Construction and operations
+Low‑carbon materials and logistics, energy‑efficient computing and cooling, and waste‑heat recovery are designed‑in.
+Environmental stewardship plans address water, land use, and local ecosystems; plans are updated across phases.
+
+20.2 Community values
+Safety, inclusion, and responsible research conduct are treated as first‑order requirements that constrain design,
+schedules, and operations.
+
+21. SMALL/MID‑SCALE PORTFOLIO (DETAILS)
+21.1 Rapid‑response and pathfinders
+Small/mid‑scale efforts incubate new ideas, de‑risk technologies, and deliver timely science. Agile mechanisms enable
+responsive starts while maintaining rigorous review and credible operations planning.
+
+21.2 Coordination and lifecycle
+Shared infrastructure (test beams, clean rooms, DAQ farms), common software, and coordinated operations reduce
+duplication. Clear lifecycle planning—construction, operations, upgrades, and decommissioning—protects resources
+and data integrity.
+
+22. CONCLUSION
+The program secures US leadership through flagship facilities, precision science, and sustained technology investments
+while sustaining the community that delivers the science. It endorses decisive participation in an offshore Higgs factory,
+accelerates the US neutrino program with ACE‑MIRT and FD3 (with an FD4 option), completes a world‑leading dark‑matter
+search with G3, launches transformational cosmic measurements with CMB‑S4 and Spec‑S5, and advances the R&D needed
+for the next collider era. With clear decision gates, realistic budgets, strong international partnerships, and explicit
+commitments to workforce, open science, and sustainability, the plan is designed to deliver major results throughout the
+next decade and prepare the ground for facilities that follow.

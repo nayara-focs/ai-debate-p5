@@ -3,7 +3,7 @@ import openai
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Load environment variables from .env file
+# Load environment variables  from .env file
 load_dotenv()
 
 # OpenAI API key (make sure this is set in your .env file)
@@ -13,7 +13,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 # Debate Configuration
-# MODEL = "gpt-4o-mini"
 MODEL = "gpt-4o-mini"
 TEMPERATURE = 0.7
 MAX_TOKENS_PER_RESPONSE = 400
@@ -36,7 +35,26 @@ INITIAL_TOPIC = (
 
 
 # File name 
-P5_REPORT_FILE: Path = Path(__file__).resolve().parent /"docs"/"context_p5_plus_fcc.txt"
+BASE_DIR = Path(__file__).resolve().parent
+DOCS_DIR = BASE_DIR /"docs"
+
+# Canonical split context files used in experiments
+P5_CONTEXT_FILE = DOCS_DIR /"p5_summary.txt"
+FCC_CONTEXT_FILE = DOCS_DIR /"fcc_summary.txt"
+
+# Deprecated: old single concatenated context file (no longer used)
+STATIC_CONTEXT_FILE = None
+
+
+# Labels for the two debating “strategies” (used in logs and prompts)
+SIDE_A_LABEL = "Strategy 1"
+SIDE_B_LABEL = "Strategy 2"
+ALLOWED_LABELS = (SIDE_A_LABEL, SIDE_B_LABEL)
+
+SIDE_STANCE = {
+    SIDE_A_LABEL: "Emphasise the US P5-aligned roadmap.",
+    SIDE_B_LABEL: "Emphasise the FCC-first roadmap.",
+}
 
 # ------------------------------------------------------------------
 # Debater roster for Elo experiment (budget-trimmed)

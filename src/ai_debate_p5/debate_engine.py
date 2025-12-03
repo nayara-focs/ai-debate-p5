@@ -332,7 +332,13 @@ def run_all_matches(
                 if order_tag == "P5+FCC"
                 else (ctx_fcc_text + "\n\n" + ctx_p5_text)
             )
-        return static_context  # CONCAT_UNSPECIFIED
+        
+        raise RuntimeError(
+            "No split contexts loaded: ctx_p5_text and/or ctx_fcc_text is None. "
+            "Provide --ctx-p5 and --ctx-fcc when calling scripts/run_debate.py, "
+            "or configure P5/FCC context files in config.py."
+        )
+
 
     for deb_pro, deb_con in product(debs, debs):
         if deb_pro["id"] == deb_con["id"]:
