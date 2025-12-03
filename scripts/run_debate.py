@@ -70,20 +70,26 @@ def main():
 
         if args.context_order == "fcc_first":
             static_context = fcc_text + "\n\n" + p5_text
-            _order_mode = "fcc_first"
         else:
-            # default keeps historical behaviour (P5 then FCC)
+        # For p5_first, random, or alternate we build canonical P5+FCC once;
+        # per-match ordering is handled inside debate_engine.
             static_context = p5_text + "\n\n" + fcc_text
-            _order_mode = "p5_first"
+
+        _order_mode = args.context_order
 
         _ctx_source = {"p5": str(args.ctx_p5), "fcc": str(args.ctx_fcc)}
         # Fingerprint the exact combined bytes we pass into run_all_matches
         _combined_bytes = static_context.encode("utf-8")
 
         # Back-compat + richer metadata
-        global_stats["context_path"]       = f"{args.ctx_p5} + {args.ctx_fcc} ({_order_mode})"
+        label_suffix = _order_mode
+        if _order_mode == "random":
+            label_suffix = f"random (seed={args.seed})"
+
+        global_stats["context_path"]       = f"{args.ctx_p5} + {args.ctx_fcc} ({label_suffix})"
         global_stats["context_paths"]      = _ctx_source
         global_stats["context_order_mode"] = _order_mode
+        global_stats["context_order_seed"] = args.seed
         global_stats["context_bytes"]      = len(_combined_bytes)
         global_stats["context_sha256"]     = hashlib.sha256(_combined_bytes).hexdigest()
 
