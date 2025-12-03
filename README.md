@@ -85,6 +85,3 @@ ai-debate-p5/
 - **FCC Feasibility Study (2025):** See: see CERN’s overview announcing the report (links to Vols 1–3): <https://home.cern/news/news/accelerators/cern-releases-report-feasibility-possible-future-circular-collider>
 - **Khan et al. (2024):** *Debating with More Persuasive LLMs Leads to More Truthful Answers*, arXiv:2402.06782 — [https://arxiv.org/abs/2402.06782](https://arxiv.org/abs/2402.06782)
 
-### Note on context files
-
-`docs/context_p5_plus_fcc.txt` is a **distilled summary** prepared for this prototype. It may omit details or emphasis from the original documents. Each run logs the file’s SHA-256 and byte size for reproducibility.
